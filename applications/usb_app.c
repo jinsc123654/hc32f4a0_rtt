@@ -1,20 +1,12 @@
-#include "usbd_core.h"
-
-/*
- * Copyright (c) 2022, sakumisu
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
-#include "usbd_cdc.h"
-
-
 /*
  * Copyright (c) 2024, sakumisu
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+#include "usbd_core.h"
 #include "usbd_msc.h"
+
+#ifdef __RT_THREAD_H__
 
 #define MSC_IN_EP  0x81
 #define MSC_OUT_EP 0x02
@@ -32,8 +24,9 @@
 #define MSC_MAX_MPS 64
 #endif
 
-const uint8_t msc_ram_descriptor[] = {
-    USB_DEVICE_DESCRIPTOR_INIT(USB_2_0, 0x00, 0x00, 0x00, USBD_VID, USBD_PID, 0x0200, 0x01),
+
+const uint8_t msc_storage_descriptor[] = {
+    USB_DEVICE_DESCRIPTOR_INIT(USB_1_1, 0x00, 0x00, 0x00, USBD_VID, USBD_PID, 0x0200, 0x01),
     USB_CONFIG_DESCRIPTOR_INIT(USB_CONFIG_SIZE, 0x01, 0x01, USB_CONFIG_BUS_POWERED, USBD_MAX_POWER),
     MSC_DESCRIPTOR_INIT(0x00, MSC_OUT_EP, MSC_IN_EP, MSC_MAX_MPS, 0x02),
     ///////////////////////////////////////
@@ -110,6 +103,14 @@ const uint8_t msc_ram_descriptor[] = {
     0x00
 };
 
+struct usbd_interface intf0;
+
+/* assume the block device is 512M */
+#define BLOCK_DEV_NAME      "sd"
+#define BLOCK_SIZE          512U
+#define BLOCK_COUNT         0x1024U * 0x1024U
+static rt_device_t blk_dev = RT_NULL;
+
 static void usbd_event_handler(uint8_t busid, uint8_t event)
 {
     switch (event) {
@@ -135,42 +136,37 @@ static void usbd_event_handler(uint8_t busid, uint8_t event)
     }
 }
 
-#define BLOCK_SIZE  512
-#define BLOCK_COUNT 10
-
-typedef struct
-{
-    uint8_t BlockSpace[BLOCK_SIZE];
-} BLOCK_TYPE;
-
-BLOCK_TYPE mass_block[BLOCK_COUNT];
-
 void usbd_msc_get_cap(uint8_t busid, uint8_t lun, uint32_t *block_num, uint32_t *block_size)
 {
-    *block_num = 1000; //Pretend having so many buffer,not has actually.
+    *block_num = BLOCK_COUNT;
     *block_size = BLOCK_SIZE;
 }
+
 int usbd_msc_sector_read(uint8_t busid, uint8_t lun, uint32_t sector, uint8_t *buffer, uint32_t length)
 {
-    if (sector < BLOCK_COUNT)
-        memcpy(buffer, mass_block[sector].BlockSpace, length);
+    rt_device_read(blk_dev, sector, buffer, length / BLOCK_SIZE);
     return 0;
 }
 
 int usbd_msc_sector_write(uint8_t busid, uint8_t lun, uint32_t sector, uint8_t *buffer, uint32_t length)
 {
-    if (sector < BLOCK_COUNT)
-        memcpy(mass_block[sector].BlockSpace, buffer, length);
+    rt_device_write(blk_dev, sector, buffer, length / BLOCK_SIZE);
     return 0;
 }
 
-struct usbd_interface intf0;
-
-void msc_ram_init(uint8_t busid, uint32_t reg_base)
+void msc_storage_init(uint8_t busid, uint32_t reg_base)
 {
-    usbd_desc_register(busid, msc_ram_descriptor);
+    rt_err_t res;
+
+    blk_dev = rt_device_find(BLOCK_DEV_NAME);
+    RT_ASSERT(blk_dev);
+
+    res = rt_device_open(blk_dev, RT_DEVICE_OFLAG_RDWR);
+    RT_ASSERT(res == RT_EOK);
+
+    usbd_desc_register(busid, msc_storage_descriptor);
     usbd_add_interface(busid, usbd_msc_init_intf(busid, &intf0, MSC_OUT_EP, MSC_IN_EP));
 
     usbd_initialize(busid, reg_base, usbd_event_handler);
 }
-
+#endif

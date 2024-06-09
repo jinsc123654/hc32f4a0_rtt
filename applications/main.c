@@ -71,8 +71,8 @@ int main(void)
 //    extern void cdc_acm_init(uint8_t busid, uint32_t reg_base);
 //    cdc_acm_init(0, CM_USBFS_BASE);
 //    
-    extern void msc_ram_init(uint8_t busid, uint32_t reg_base);
-    msc_ram_init(0, CM_USBFS_BASE);
+    extern void msc_storage_init(uint8_t busid, uint32_t reg_base);
+    msc_storage_init(0, CM_USBFS_BASE);
 
     while (1)
     {

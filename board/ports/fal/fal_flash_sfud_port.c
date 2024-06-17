@@ -16,7 +16,7 @@
 #endif
 
 #ifndef FAL_USING_NOR_FLASH_DEV_NAME
-    #define FAL_USING_NOR_FLASH_DEV_NAME            "w25q64"
+    #define FAL_USING_NOR_FLASH_DEV_NAME            "w25q128"
 #endif
 
 static int init(void);

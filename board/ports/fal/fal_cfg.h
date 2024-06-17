@@ -35,7 +35,7 @@ extern struct fal_flash_dev ext_nor_flash0;
 #define FAL_PART_TABLE                                                                 \
 {                                                                                      \
     {FAL_PART_MAGIC_WROD,          "app",   "onchip_flash",   0,  2 * 1024 * 1024, 0}, \
-    {FAL_PART_MAGIC_WROD,   "filesystem",         "w25q64",   0,  8 * 1024 * 1024, 0}, \
+    {FAL_PART_MAGIC_WROD,   "filesystem",        "w25q128",   0,  16 * 1024 * 1024, 0}, \
 }
 #endif /* FAL_PART_HAS_TABLE_CFG */
 

@@ -25,7 +25,7 @@
 
 #define SPI_BUS_NAME                    "spi1"
 #define SPI_FLASH_DEVICE_NAME           "spi10"
-#define SPI_FLASH_CHIP                  "w25q64"
+#define SPI_FLASH_CHIP                  "w25q128"
 #define SPI_FLASH_SS_PORT               GPIO_PORT_A
 #define SPI_FLASH_SS_PIN                GPIO_PIN_04
 /* Partition Name */

@@ -82,7 +82,7 @@ menu "Onboard Peripheral Drivers"
         endif
 
     config BSP_USING_SPI_FLASH
-        bool "Enable SPI FLASH (w25q64 spi1)"
+        bool "Enable SPI FLASH (w25q128 spi1)"
         select BSP_USING_SPI
         select BSP_USING_SPI1
         select BSP_USING_ON_CHIP_FLASH

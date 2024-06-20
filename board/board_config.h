@@ -24,12 +24,12 @@
 
 /************************ USART port **********************/
 #if defined(BSP_USING_UART1)
-    #define USART1_RX_PORT                  (GPIO_PORT_H)
-    #define USART1_RX_PIN                   (GPIO_PIN_13)
+    #define USART1_RX_PORT                  (GPIO_PORT_D)
+    #define USART1_RX_PIN                   (GPIO_PIN_09)
     #define USART1_RX_FUNC                  (GPIO_FUNC_33)
 
-    #define USART1_TX_PORT                  (GPIO_PORT_H)
-    #define USART1_TX_PIN                   (GPIO_PIN_15)
+    #define USART1_TX_PORT                  (GPIO_PORT_D)
+    #define USART1_TX_PIN                   (GPIO_PIN_08)
     #define USART1_TX_FUNC                  (GPIO_FUNC_32)
 #endif
 

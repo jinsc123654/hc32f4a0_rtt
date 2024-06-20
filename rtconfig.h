@@ -61,6 +61,7 @@
 #define RT_USING_USER_MAIN
 #define RT_MAIN_THREAD_STACK_SIZE 2048
 #define RT_MAIN_THREAD_PRIORITY 10
+#define RT_USING_LEGACY
 #define RT_USING_MSH
 #define RT_USING_FINSH
 #define FINSH_USING_MSH
@@ -163,6 +164,19 @@
 
 /* Utilities */
 
+#define RT_USING_ULOG
+#define ULOG_OUTPUT_LVL_D
+#define ULOG_OUTPUT_LVL 7
+#define ULOG_ASSERT_ENABLE
+#define ULOG_LINE_BUF_SIZE 128
+
+/* log format */
+
+#define ULOG_USING_COLOR
+#define ULOG_OUTPUT_TIME
+#define ULOG_OUTPUT_LEVEL
+#define ULOG_OUTPUT_TAG
+#define ULOG_BACKEND_USING_CONSOLE
 
 /* RT-Thread online packages */
 
@@ -233,6 +247,14 @@
 #define LFS_BLOCK_CYCLES -1
 #define LFS_THREADSAFE
 #define LFS_LOOKAHEAD_MAX 128
+#define PKG_USING_CHERRYUSB
+#define PKG_CHERRYUSB_DEVICE
+#define PKG_CHERRYUSB_DEVICE_FS
+#define PKG_CHERRYUSB_DEVICE_DWC2_HC
+#define PKG_CHERRYUSB_DEVICE_CDC_ACM
+#define PKG_CHERRYUSB_DEVICE_HID
+#define PKG_CHERRYUSB_DEVICE_TEMPLATE_NONE
+#define PKG_USING_CHERRYUSB_V010300
 
 /* peripheral libraries and drivers */
 
@@ -325,6 +347,9 @@
 
 #define BSP_USING_GPIO
 #define BSP_USING_UART
+#define BSP_USING_UART1
+#define BSP_UART1_RX_USING_DMA
+#define BSP_UART1_TX_USING_DMA
 #define BSP_USING_UART6
 #define BSP_UART6_TX_USING_DMA
 #define BSP_USING_ON_CHIP_FLASH
@@ -337,6 +362,10 @@
 #define BSP_RTC_USING_XTAL32
 #define BSP_USING_SDIO
 #define BSP_USING_SDIO1
+#define BSP_USING_USB
+#define BSP_USING_USBFS
+#define BSP_USING_USBD
+#define BSP_USING_USBD_VBUS_SENSING
 
 /* Board extended module Drivers */
 

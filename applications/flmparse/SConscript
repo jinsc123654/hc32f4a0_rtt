@@ -1,0 +1,20 @@
+import rtconfig
+from building import *
+
+# get current directory
+cwd = GetCurrentDir()
+path = [cwd]
+
+
+# The set of source files associated with this SConscript file.
+
+#src = Split('''
+#*.c
+#''')
+
+src = Glob('*.c')
+
+
+group = DefineGroup('offline_download', src, depend = [''], CPPPATH = path)
+
+Return('group')

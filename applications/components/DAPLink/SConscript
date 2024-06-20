@@ -1,0 +1,32 @@
+import rtconfig
+from building import *
+
+# get current directory
+cwd = GetCurrentDir()
+path = [cwd + '/include']
+path += [cwd + '/Source/interface']
+path += [cwd + '/Source/target']
+path += [cwd + '/Source/hic_hal']
+path += [cwd + '/Source']
+
+
+# The set of source files associated with this SConscript file.
+
+src = Split('''
+Source/DAP.c
+Source/DAP_vendor.c
+Source/JTAG_DP.c
+Source/SW_DP.c
+Source/SWO.c
+Source/UART.c
+Source/interface/swd_host.c
+Source/interface/SWD_flash.c
+
+''')
+
+
+CPPDEFINES = ['USE_STDPERIPH_DRIVER']
+
+group = DefineGroup('Libraries/DAPLINK', src, depend = [''], CPPPATH = path, CPPDEFINES = CPPDEFINES)
+
+Return('group')

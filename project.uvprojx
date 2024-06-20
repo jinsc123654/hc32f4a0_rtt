@@ -384,31 +384,6 @@
           <GroupName>Applications</GroupName>
           <Files>
             <File>
-              <FileName>dap_loop.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\dap_loop.c</FilePath>
-            </File>
-            <File>
-              <FileName>dap_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\dap_main.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_beep.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\bsp_beep.c</FilePath>
-            </File>
-            <File>
-              <FileName>xtal32_fcm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\xtal32_fcm.c</FilePath>
-            </File>
-            <File>
-              <FileName>usb2uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\usb2uart.c</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>applications\main.c</FilePath>
@@ -424,9 +399,34 @@
               <FilePath>applications\usb_app.c</FilePath>
             </File>
             <File>
+              <FileName>usb2uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\usb2uart.c</FilePath>
+            </File>
+            <File>
               <FileName>power_control.c</FileName>
               <FileType>1</FileType>
               <FilePath>applications\power_control.c</FilePath>
+            </File>
+            <File>
+              <FileName>xtal32_fcm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\xtal32_fcm.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\bsp_beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>dap_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\dap_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>dap_loop.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\dap_loop.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -434,24 +434,9 @@
           <GroupName>CherryUSB</GroupName>
           <Files>
             <File>
-              <FileName>usbd_hid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\CherryUSB-1.3.0\class\hid\usbd_hid.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_cdc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\CherryUSB-1.3.0\class\cdc\usbd_cdc.c</FilePath>
-            </File>
-            <File>
               <FileName>usb_dc_dwc2.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\CherryUSB-1.3.0\port\dwc2\usb_dc_dwc2.c</FilePath>
-            </File>
-            <File>
-              <FileName>usb_glue_hc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\CherryUSB-1.3.0\port\dwc2\usb_glue_hc.c</FilePath>
             </File>
             <File>
               <FileName>usb_osal_rtthread.c</FileName>
@@ -459,19 +444,34 @@
               <FilePath>packages\CherryUSB-1.3.0\osal\usb_osal_rtthread.c</FilePath>
             </File>
             <File>
-              <FileName>usbd_core.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\CherryUSB-1.3.0\core\usbd_core.c</FilePath>
-            </File>
-            <File>
               <FileName>usb_msh.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\CherryUSB-1.3.0\third_party\rt-thread-5.0\usb_msh.c</FilePath>
             </File>
             <File>
+              <FileName>usbd_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\CherryUSB-1.3.0\core\usbd_core.c</FilePath>
+            </File>
+            <File>
               <FileName>usb_check.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\CherryUSB-1.3.0\third_party\rt-thread-5.0\usb_check.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\CherryUSB-1.3.0\class\hid\usbd_hid.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_glue_hc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\CherryUSB-1.3.0\port\dwc2\usb_glue_hc.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_cdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\CherryUSB-1.3.0\class\cdc\usbd_cdc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1943,16 +1943,6 @@
           <GroupName>Fal</GroupName>
           <Files>
             <File>
-              <FileName>fal_rtt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\components\fal\src\fal_rtt.c</FilePath>
-            </File>
-            <File>
-              <FileName>fal_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\components\fal\src\fal_flash.c</FilePath>
-            </File>
-            <File>
               <FileName>fal.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\fal\src\fal.c</FilePath>
@@ -1961,6 +1951,16 @@
               <FileName>fal_partition.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\fal\src\fal_partition.c</FilePath>
+            </File>
+            <File>
+              <FileName>fal_rtt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\fal\src\fal_rtt.c</FilePath>
+            </File>
+            <File>
+              <FileName>fal_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\fal\src\fal_flash.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3159,24 +3159,24 @@
           <GroupName>littlefs</GroupName>
           <Files>
             <File>
-              <FileName>lfs_util.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\littlefs-latest\lfs_util.c</FilePath>
-            </File>
-            <File>
               <FileName>dfs_lfs.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\littlefs-latest\dfs_lfs.c</FilePath>
             </File>
             <File>
-              <FileName>lfs_crc.c</FileName>
+              <FileName>lfs_util.c</FileName>
               <FileType>1</FileType>
-              <FilePath>packages\littlefs-latest\lfs_crc.c</FilePath>
+              <FilePath>packages\littlefs-latest\lfs_util.c</FilePath>
             </File>
             <File>
               <FileName>lfs.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\littlefs-latest\lfs.c</FilePath>
+            </File>
+            <File>
+              <FileName>lfs_crc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\littlefs-latest\lfs_crc.c</FilePath>
             </File>
           </Files>
         </Group>

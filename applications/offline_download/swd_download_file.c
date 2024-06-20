@@ -255,6 +255,7 @@ int32_t swd_download_from_file(char *_file_path)
     rt_snprintf( offline_download_info.info_message, sizeof( offline_download_info.info_message), "%s", "verify pass");
     close(fd);
     //7 让目标单片机开始运行
+    extern void soft_reset_target(void);
     soft_reset_target();
 
     offline_download_info.success_download_count += 1;

@@ -16,6 +16,7 @@
 #include "dap_main.h"
 
 #include "dap.h"
+#include "swd_host.h"
 #include "swd_download_file.h"
 
 

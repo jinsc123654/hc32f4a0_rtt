@@ -311,8 +311,28 @@ Configures the DAP Hardware I/O pins for JTAG mode:
  - TCK, TMS, TDI, nTRST, nRESET to output mode and set to high level.
  - TDO to input mode.
 */
-__STATIC_INLINE void PORT_JTAG_SETUP (void) {
-  ;
+#define JTAG_TCK_PIN    GET_PIN(E, 7)
+#define JTAG_TMS_PIN    GET_PIN(E, 8)
+#define JTAG_TDI_PIN    GET_PIN(E, 12)
+#define JTAG_nRESET_PIN GET_PIN(E, 10)
+#define JTAG_TDO_PIN    GET_PIN(D, 6)
+
+#define JTAG_nTRST_PIN  GET_PIN(E, 10)
+
+
+__STATIC_INLINE void PORT_JTAG_SETUP (void) 
+{
+    rt_pin_mode(JTAG_TCK_PIN, PIN_MODE_OUTPUT);
+    rt_pin_mode(JTAG_TMS_PIN, PIN_MODE_OUTPUT);
+    rt_pin_mode(JTAG_TDI_PIN, PIN_MODE_OUTPUT);
+    rt_pin_mode(JTAG_nRESET_PIN, PIN_MODE_OUTPUT);
+    rt_pin_mode(JTAG_TDO_PIN, PIN_MODE_INPUT_PULLDOWN);
+    
+    //输出高电平
+    rt_pin_write(JTAG_TCK_PIN, PIN_HIGH);
+    rt_pin_write(JTAG_TMS_PIN, PIN_HIGH);
+    rt_pin_write(JTAG_TDI_PIN, PIN_HIGH);
+    rt_pin_write(JTAG_nRESET_PIN, PIN_HIGH);
 }
 
 /** Setup SWD I/O pins: SWCLK, SWDIO, and nRESET.
@@ -321,7 +341,15 @@ Configures the DAP Hardware I/O pins for Serial Wire Debug (SWD) mode:
  - TDI, nTRST to HighZ mode (pins are unused in SWD mode).
 */
 __STATIC_INLINE void PORT_SWD_SETUP (void) {
-  ;
+    rt_pin_mode(JTAG_TCK_PIN, PIN_MODE_OUTPUT);
+    rt_pin_mode(JTAG_TMS_PIN, PIN_MODE_OUTPUT);
+    rt_pin_mode(JTAG_nRESET_PIN, PIN_MODE_OUTPUT);
+
+    
+    //输出高电平
+    rt_pin_write(JTAG_TCK_PIN, PIN_HIGH);
+    rt_pin_write(JTAG_TMS_PIN, PIN_HIGH);
+    rt_pin_write(JTAG_nRESET_PIN, PIN_HIGH);
 }
 
 /** Disable JTAG/SWD I/O Pins.
@@ -329,7 +357,9 @@ Disables the DAP Hardware I/O pins which configures:
  - TCK/SWCLK, TMS/SWDIO, TDI, TDO, nTRST, nRESET to High-Z mode.
 */
 __STATIC_INLINE void PORT_OFF (void) {
-  ;
+    rt_pin_mode(JTAG_TCK_PIN, PIN_MODE_INPUT_PULLDOWN);
+    rt_pin_mode(JTAG_TMS_PIN, PIN_MODE_INPUT_PULLDOWN);
+    rt_pin_mode(JTAG_nRESET_PIN, PIN_MODE_OUTPUT_OD);
 }
 
 
@@ -339,21 +369,21 @@ __STATIC_INLINE void PORT_OFF (void) {
 \return Current status of the SWCLK/TCK DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE uint32_t PIN_SWCLK_TCK_IN  (void) {
-  return (0U);
+  return rt_pin_read(JTAG_TCK_PIN);
 }
 
 /** SWCLK/TCK I/O pin: Set Output to High.
 Set the SWCLK/TCK DAP hardware I/O pin to high level.
 */
 __STATIC_FORCEINLINE void     PIN_SWCLK_TCK_SET (void) {
-  ;
+    rt_pin_write(JTAG_TCK_PIN, PIN_HIGH);
 }
 
 /** SWCLK/TCK I/O pin: Set Output to Low.
 Set the SWCLK/TCK DAP hardware I/O pin to low level.
 */
 __STATIC_FORCEINLINE void     PIN_SWCLK_TCK_CLR (void) {
-  ;
+    rt_pin_write(JTAG_TCK_PIN, PIN_LOW);
 }
 
 
@@ -363,35 +393,35 @@ __STATIC_FORCEINLINE void     PIN_SWCLK_TCK_CLR (void) {
 \return Current status of the SWDIO/TMS DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE uint32_t PIN_SWDIO_TMS_IN  (void) {
-  return (0U);
+    return rt_pin_read(JTAG_TMS_PIN);
 }
 
 /** SWDIO/TMS I/O pin: Set Output to High.
 Set the SWDIO/TMS DAP hardware I/O pin to high level.
 */
 __STATIC_FORCEINLINE void     PIN_SWDIO_TMS_SET (void) {
-  ;
+    rt_pin_write(JTAG_TMS_PIN, PIN_HIGH);
 }
 
 /** SWDIO/TMS I/O pin: Set Output to Low.
 Set the SWDIO/TMS DAP hardware I/O pin to low level.
 */
 __STATIC_FORCEINLINE void     PIN_SWDIO_TMS_CLR (void) {
-  ;
+    rt_pin_write(JTAG_TMS_PIN, PIN_LOW);
 }
 
 /** SWDIO I/O pin: Get Input (used in SWD mode only).
 \return Current status of the SWDIO DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE uint32_t PIN_SWDIO_IN      (void) {
-  return (0U);
+  return PIN_SWDIO_TMS_IN();
 }
 
 /** SWDIO I/O pin: Set Output (used in SWD mode only).
 \param bit Output value for the SWDIO DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE void     PIN_SWDIO_OUT     (uint32_t bit) {
-  ;
+   rt_pin_write(JTAG_TMS_PIN, bit & 1U);
 }
 
 /** SWDIO I/O pin: Switch to Output mode (used in SWD mode only).
@@ -399,7 +429,8 @@ Configure the SWDIO DAP hardware I/O pin to output mode. This function is
 called prior \ref PIN_SWDIO_OUT function calls.
 */
 __STATIC_FORCEINLINE void     PIN_SWDIO_OUT_ENABLE  (void) {
-  ;
+    rt_pin_write(JTAG_TMS_PIN, 1);
+    rt_pin_mode(JTAG_TMS_PIN, PIN_MODE_OUTPUT);
 }
 
 /** SWDIO I/O pin: Switch to Input mode (used in SWD mode only).
@@ -407,7 +438,8 @@ Configure the SWDIO DAP hardware I/O pin to input mode. This function is
 called prior \ref PIN_SWDIO_IN function calls.
 */
 __STATIC_FORCEINLINE void     PIN_SWDIO_OUT_DISABLE (void) {
-  ;
+    rt_pin_write(JTAG_TMS_PIN, 1);
+    rt_pin_mode(JTAG_TMS_PIN, PIN_MODE_INPUT_PULLDOWN);
 }
 
 
@@ -417,14 +449,14 @@ __STATIC_FORCEINLINE void     PIN_SWDIO_OUT_DISABLE (void) {
 \return Current status of the TDI DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE uint32_t PIN_TDI_IN  (void) {
-  return (0U);
+    return rt_pin_read(JTAG_TDI_PIN);
 }
 
 /** TDI I/O pin: Set Output.
 \param bit Output value for the TDI DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE void     PIN_TDI_OUT (uint32_t bit) {
-  ;
+  rt_pin_write(JTAG_TDI_PIN, bit & 1U);
 }
 
 
@@ -434,7 +466,7 @@ __STATIC_FORCEINLINE void     PIN_TDI_OUT (uint32_t bit) {
 \return Current status of the TDO DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE uint32_t PIN_TDO_IN  (void) {
-  return (0U);
+    return rt_pin_read(JTAG_TDO_PIN);
 }
 
 
@@ -462,7 +494,7 @@ __STATIC_FORCEINLINE void     PIN_nTRST_OUT  (uint32_t bit) {
 \return Current status of the nRESET DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE uint32_t PIN_nRESET_IN  (void) {
-  return (0U);
+    return rt_pin_read(JTAG_nRESET_PIN);
 }
 
 /** nRESET I/O pin: Set Output.
@@ -471,7 +503,17 @@ __STATIC_FORCEINLINE uint32_t PIN_nRESET_IN  (void) {
            - 1: release device hardware reset.
 */
 __STATIC_FORCEINLINE void     PIN_nRESET_OUT (uint32_t bit) {
-  ;
+  if ((bit & 1U) == 0U) 
+  {
+      rt_pin_write(JTAG_nRESET_PIN, 0U);
+      rt_pin_mode(JTAG_nRESET_PIN, PIN_MODE_OUTPUT);
+      extern  void soft_reset_target(void);
+      soft_reset_target();
+  } 
+  else 
+  {
+      rt_pin_mode(JTAG_nRESET_PIN, PIN_MODE_OUTPUT_OD);
+  }
 }
 
 ///@}
@@ -495,14 +537,35 @@ It is recommended to provide the following LEDs for status indication:
            - 1: Connect LED ON: debugger is connected to CMSIS-DAP Debug Unit.
            - 0: Connect LED OFF: debugger is not connected to CMSIS-DAP Debug Unit.
 */
-__STATIC_INLINE void LED_CONNECTED_OUT (uint32_t bit) {}
+#include "bsp_led.h"
+__STATIC_INLINE void LED_CONNECTED_OUT (uint32_t bit) 
+{
+    if(bit == 0)
+    {
+        bsp_led_off(LED1);
+    }
+    else
+    {
+        bsp_led_on(LED1);
+    }
+}
 
 /** Debug Unit: Set status Target Running LED.
 \param bit status of the Target Running LED.
            - 1: Target Running LED ON: program execution in target started.
            - 0: Target Running LED OFF: program execution in target stopped.
 */
-__STATIC_INLINE void LED_RUNNING_OUT (uint32_t bit) {}
+__STATIC_INLINE void LED_RUNNING_OUT (uint32_t bit) 
+{
+    if(bit == 0)
+    {
+        bsp_led_off(LED2);
+    }
+    else
+    {
+        bsp_led_on(LED2);
+    }   
+}
 
 ///@}
 

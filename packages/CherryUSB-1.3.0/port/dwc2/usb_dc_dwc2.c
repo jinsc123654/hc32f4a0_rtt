@@ -627,9 +627,9 @@ int usb_dc_init(uint8_t busid)
         }
     }
 
-    /* xxx32 chips do not follow (USB_OTG_GLB->GHWCFG3 >> 16) if hsphy_type is zero, they use 1.25KB(320 DWORD) */
-    if ((hsphy_type == 0) && (fifo_num > 320)) {
-        USB_LOG_ERR("Your fifo config is larger than 320 , please check\r\n");
+    /* xxx32 chips do not follow (USB_OTG_GLB->GHWCFG3 >> 16) if hsphy_type is zero, they use 1.25KB(320 DWORD) HC32F4A0是2.5Kfifo */
+    if ((hsphy_type == 0) && (fifo_num > 320*2)) {
+        USB_LOG_ERR("Your fifo config is larger than 640 , please check\r\n");
         while (1) {
         }
     }

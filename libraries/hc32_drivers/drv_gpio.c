@@ -236,6 +236,7 @@ static void hc32_pin_mode(struct rt_device *device, rt_base_t pin, rt_uint8_t mo
     }
 
     GPIO_StructInit(&stcGpioInit);
+    stcGpioInit.u16PinDrv = PIN_HIGH_DRV;
     switch (mode)
     {
     case PIN_MODE_OUTPUT:

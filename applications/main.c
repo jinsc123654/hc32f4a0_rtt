@@ -27,7 +27,7 @@ int main(void)
     int cnt = 0;
     /* set LED_GREEN_PIN pin mode to output */
     rt_pin_mode(LED_GREEN_PIN, PIN_MODE_OUTPUT);
-    power_control_switch(POWER_5V0,POWER_STATE_ON);
+    power_control_switch(POWER_3V3,POWER_STATE_ON);
   
     rt_err_t ret = RT_EOK;
 
@@ -93,7 +93,7 @@ int main(void)
     while (1)
     {     
         extern void bsp_led_left_right_move(void);
-        bsp_led_left_right_move();
+        //bsp_led_left_right_move();
         if(++cnt % 5 == 0)
         {
             rt_pin_write(LED_GREEN_PIN, !rt_pin_read(LED_GREEN_PIN));

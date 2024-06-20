@@ -77,7 +77,6 @@ __WEAK void swd_set_target_reset(uint8_t value)
 
 __WEAK uint32_t target_get_apsel()
 {
-
     return 0;
 }
 

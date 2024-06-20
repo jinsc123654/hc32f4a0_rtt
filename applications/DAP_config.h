@@ -319,6 +319,31 @@ Configures the DAP Hardware I/O pins for JTAG mode:
 
 #define JTAG_nTRST_PIN  GET_PIN(E, 10)
 
+#define GPIO_PIN_INDEX(pin)             ((uint8_t)((pin) & 0x0F))
+#define PIN_NUM(port, pin)              (((((port) & 0x0F) << 4) | ((pin) & 0x0F)))
+#define GPIO_PORT(pin)                  ((uint8_t)(((pin) >> 4) & 0x0F))
+#define GPIO_PIN(pin)                   ((uint16_t)(0x01U << GPIO_PIN_INDEX(pin)))
+
+/* 寄存库快速操作*/
+/* JTAG - TCK */
+#define JTAG_TCK_PIN_READ()     ((CM_GPIO->PIDRE >> 7) &0x01)
+#define JTAG_TCK_PIN_SET()      (CM_GPIO->PODRE |= 0x01 << 7)         //rt_pin_write(JTAG_TCK_PIN, PIN_HIGH);
+#define JTAG_TCK_PIN_CLR()      (CM_GPIO->PODRE &= ~(0x01 << 7))
+/* JTAG - TMS */
+#define JTAG_TMS_PIN_READ()     ((CM_GPIO->PIDRE >> 8) &0x01)
+#define JTAG_TMS_PIN_SET()      (CM_GPIO->PODRE |= 0x01 << 8)         //rt_pin_write(JTAG_TMS_PIN, PIN_HIGH);
+#define JTAG_TMS_PIN_CLR()      (CM_GPIO->PODRE &= ~(0x01 << 8))
+#define JTAG_TMS_PIN_OUT()      (CM_GPIO->POERE |= 0x01 << 8)
+#define JTAG_TMS_PIN_IN()       (CM_GPIO->POERE &= ~(0x01 << 8))
+/* JTAG - TDI */
+#define JTAG_TDI_PIN_READ()     GPIO_ReadInputPins(GPIO_PORT(JTAG_TDI_PIN), GPIO_PIN(JTAG_TDI_PIN))
+#define JTAG_TDI_PIN_SET()      GPIO_SetPins(GPIO_PORT(JTAG_TDI_PIN), GPIO_PIN(JTAG_TDI_PIN))         //rt_pin_write(JTAG_TDI_PIN, PIN_HIGH);
+#define JTAG_TDI_PIN_CLR()      GPIO_ResetPins(GPIO_PORT(JTAG_TDI_PIN), GPIO_PIN(JTAG_TDI_PIN))
+/* JTAG - nRESET */
+#define JTAG_nRESET_PIN_READ()  GPIO_ReadInputPins(GPIO_PORT(JTAG_nRESET_PIN), GPIO_PIN(JTAG_nRESET_PIN))
+#define JTAG_nRESET_PIN_SET()   GPIO_SetPins(GPIO_PORT(JTAG_nRESET_PIN), GPIO_PIN(JTAG_nRESET_PIN))         //rt_pin_write(JTAG_TMS_PIN, PIN_HIGH);
+#define JTAG_nRESET_PIN_CLR()   GPIO_ResetPins(GPIO_PORT(JTAG_nRESET_PIN), GPIO_PIN(JTAG_nRESET_PIN))
+
 
 __STATIC_INLINE void PORT_JTAG_SETUP (void) 
 {
@@ -329,10 +354,10 @@ __STATIC_INLINE void PORT_JTAG_SETUP (void)
     rt_pin_mode(JTAG_TDO_PIN, PIN_MODE_INPUT_PULLDOWN);
     
     //输出高电平
-    rt_pin_write(JTAG_TCK_PIN, PIN_HIGH);
-    rt_pin_write(JTAG_TMS_PIN, PIN_HIGH);
-    rt_pin_write(JTAG_TDI_PIN, PIN_HIGH);
-    rt_pin_write(JTAG_nRESET_PIN, PIN_HIGH);
+    JTAG_TCK_PIN_SET();
+    JTAG_TMS_PIN_SET();
+    JTAG_TDI_PIN_SET();
+    JTAG_nRESET_PIN_SET();
 }
 
 /** Setup SWD I/O pins: SWCLK, SWDIO, and nRESET.
@@ -345,11 +370,10 @@ __STATIC_INLINE void PORT_SWD_SETUP (void) {
     rt_pin_mode(JTAG_TMS_PIN, PIN_MODE_OUTPUT);
     rt_pin_mode(JTAG_nRESET_PIN, PIN_MODE_OUTPUT);
 
-    
     //输出高电平
-    rt_pin_write(JTAG_TCK_PIN, PIN_HIGH);
-    rt_pin_write(JTAG_TMS_PIN, PIN_HIGH);
-    rt_pin_write(JTAG_nRESET_PIN, PIN_HIGH);
+    JTAG_TCK_PIN_SET();
+    JTAG_TMS_PIN_SET();
+    JTAG_nRESET_PIN_SET();
 }
 
 /** Disable JTAG/SWD I/O Pins.
@@ -369,21 +393,21 @@ __STATIC_INLINE void PORT_OFF (void) {
 \return Current status of the SWCLK/TCK DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE uint32_t PIN_SWCLK_TCK_IN  (void) {
-  return rt_pin_read(JTAG_TCK_PIN);
+  return JTAG_TCK_PIN_READ();
 }
 
 /** SWCLK/TCK I/O pin: Set Output to High.
 Set the SWCLK/TCK DAP hardware I/O pin to high level.
 */
 __STATIC_FORCEINLINE void     PIN_SWCLK_TCK_SET (void) {
-    rt_pin_write(JTAG_TCK_PIN, PIN_HIGH);
+    JTAG_TCK_PIN_SET();
 }
 
 /** SWCLK/TCK I/O pin: Set Output to Low.
 Set the SWCLK/TCK DAP hardware I/O pin to low level.
 */
 __STATIC_FORCEINLINE void     PIN_SWCLK_TCK_CLR (void) {
-    rt_pin_write(JTAG_TCK_PIN, PIN_LOW);
+    JTAG_TCK_PIN_CLR();
 }
 
 
@@ -393,21 +417,21 @@ __STATIC_FORCEINLINE void     PIN_SWCLK_TCK_CLR (void) {
 \return Current status of the SWDIO/TMS DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE uint32_t PIN_SWDIO_TMS_IN  (void) {
-    return rt_pin_read(JTAG_TMS_PIN);
+    return JTAG_TMS_PIN_READ();
 }
 
 /** SWDIO/TMS I/O pin: Set Output to High.
 Set the SWDIO/TMS DAP hardware I/O pin to high level.
 */
 __STATIC_FORCEINLINE void     PIN_SWDIO_TMS_SET (void) {
-    rt_pin_write(JTAG_TMS_PIN, PIN_HIGH);
+    JTAG_TMS_PIN_SET();
 }
 
 /** SWDIO/TMS I/O pin: Set Output to Low.
 Set the SWDIO/TMS DAP hardware I/O pin to low level.
 */
 __STATIC_FORCEINLINE void     PIN_SWDIO_TMS_CLR (void) {
-    rt_pin_write(JTAG_TMS_PIN, PIN_LOW);
+    JTAG_TMS_PIN_CLR();
 }
 
 /** SWDIO I/O pin: Get Input (used in SWD mode only).
@@ -421,6 +445,14 @@ __STATIC_FORCEINLINE uint32_t PIN_SWDIO_IN      (void) {
 \param bit Output value for the SWDIO DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE void     PIN_SWDIO_OUT     (uint32_t bit) {
+  if(bit == 0)
+  {
+    JTAG_TMS_PIN_CLR();
+  }
+  else
+  {
+    JTAG_TMS_PIN_SET();
+  }
    rt_pin_write(JTAG_TMS_PIN, bit & 1U);
 }
 
@@ -429,8 +461,8 @@ Configure the SWDIO DAP hardware I/O pin to output mode. This function is
 called prior \ref PIN_SWDIO_OUT function calls.
 */
 __STATIC_FORCEINLINE void     PIN_SWDIO_OUT_ENABLE  (void) {
-    rt_pin_write(JTAG_TMS_PIN, 1);
-    rt_pin_mode(JTAG_TMS_PIN, PIN_MODE_OUTPUT);
+    JTAG_TMS_PIN_SET();
+    JTAG_TMS_PIN_OUT();
 }
 
 /** SWDIO I/O pin: Switch to Input mode (used in SWD mode only).
@@ -438,8 +470,8 @@ Configure the SWDIO DAP hardware I/O pin to input mode. This function is
 called prior \ref PIN_SWDIO_IN function calls.
 */
 __STATIC_FORCEINLINE void     PIN_SWDIO_OUT_DISABLE (void) {
-    rt_pin_write(JTAG_TMS_PIN, 1);
-    rt_pin_mode(JTAG_TMS_PIN, PIN_MODE_INPUT_PULLDOWN);
+    JTAG_TMS_PIN_SET();
+    JTAG_TMS_PIN_IN();
 }
 
 
@@ -449,14 +481,21 @@ __STATIC_FORCEINLINE void     PIN_SWDIO_OUT_DISABLE (void) {
 \return Current status of the TDI DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE uint32_t PIN_TDI_IN  (void) {
-    return rt_pin_read(JTAG_TDI_PIN);
+    return JTAG_TDI_PIN_READ();
 }
 
 /** TDI I/O pin: Set Output.
 \param bit Output value for the TDI DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE void     PIN_TDI_OUT (uint32_t bit) {
-  rt_pin_write(JTAG_TDI_PIN, bit & 1U);
+    if(bit == 0)
+  {
+    JTAG_TDI_PIN_CLR();
+  }
+  else
+  {
+    JTAG_TDI_PIN_SET();
+  }
 }
 
 
@@ -466,7 +505,7 @@ __STATIC_FORCEINLINE void     PIN_TDI_OUT (uint32_t bit) {
 \return Current status of the TDO DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE uint32_t PIN_TDO_IN  (void) {
-    return rt_pin_read(JTAG_TDO_PIN);
+    return JTAG_TDI_PIN_READ();
 }
 
 
@@ -494,7 +533,7 @@ __STATIC_FORCEINLINE void     PIN_nTRST_OUT  (uint32_t bit) {
 \return Current status of the nRESET DAP hardware I/O pin.
 */
 __STATIC_FORCEINLINE uint32_t PIN_nRESET_IN  (void) {
-    return rt_pin_read(JTAG_nRESET_PIN);
+    return JTAG_nRESET_PIN_READ();
 }
 
 /** nRESET I/O pin: Set Output.
@@ -505,7 +544,7 @@ __STATIC_FORCEINLINE uint32_t PIN_nRESET_IN  (void) {
 __STATIC_FORCEINLINE void     PIN_nRESET_OUT (uint32_t bit) {
   if ((bit & 1U) == 0U) 
   {
-      rt_pin_write(JTAG_nRESET_PIN, 0U);
+      JTAG_nRESET_PIN_CLR();
       rt_pin_mode(JTAG_nRESET_PIN, PIN_MODE_OUTPUT);
       extern  void soft_reset_target(void);
       soft_reset_target();
@@ -564,7 +603,7 @@ __STATIC_INLINE void LED_RUNNING_OUT (uint32_t bit)
     else
     {
         bsp_led_on(LED2);
-    }   
+    }
 }
 
 ///@}

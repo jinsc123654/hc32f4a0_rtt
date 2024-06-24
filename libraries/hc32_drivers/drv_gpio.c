@@ -18,11 +18,6 @@
 
 #if defined(BSP_USING_GPIO)
 
-#define GPIO_PIN_INDEX(pin)             ((uint8_t)((pin) & 0x0F))
-#define PIN_NUM(port, pin)              (((((port) & 0x0F) << 4) | ((pin) & 0x0F)))
-#define GPIO_PORT(pin)                  ((uint8_t)(((pin) >> 4) & 0x0F))
-#define GPIO_PIN(pin)                   ((uint16_t)(0x01U << GPIO_PIN_INDEX(pin)))
-
 #if defined (HC32F4A0)
     #define PIN_MAX_NUM                     ((GPIO_PORT_I * 16) + (__CLZ(__RBIT(GPIO_PIN_13))) + 1)
 #elif defined (HC32F460)

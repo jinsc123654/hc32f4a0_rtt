@@ -179,13 +179,13 @@ rt_err_t rt_hw_board_can_init(CM_CAN_TypeDef *CANx)
 rt_err_t rt_hw_spi_board_init(CM_SPI_TypeDef *CM_SPIx)
 {
     rt_err_t result = RT_EOK;
-#if defined(BSP_USING_SPI1)
+#if defined(BSP_USING_SPI1) || defined(BSP_USING_SPI2)
     stc_gpio_init_t stcGpioInit;
 #endif
 
     switch ((rt_uint32_t)CM_SPIx)
     {
-#if defined(BSP_USING_SPI1)
+#if defined(BSP_USING_SPI1) || defined(BSP_USING_SPI2)
     case (rt_uint32_t)CM_SPI1:
         GPIO_StructInit(&stcGpioInit);
         stcGpioInit.u16PinState = PIN_STAT_SET;
@@ -206,6 +206,26 @@ rt_err_t rt_hw_spi_board_init(CM_SPI_TypeDef *CM_SPIx)
         GPIO_SetFunc(SPI1_SCK_PORT,  SPI1_SCK_PIN,  SPI1_SCK_FUNC);
         GPIO_SetFunc(SPI1_MOSI_PORT, SPI1_MOSI_PIN, SPI1_MOSI_FUNC);
         GPIO_SetFunc(SPI1_MISO_PORT, SPI1_MISO_PIN, SPI1_MISO_FUNC);
+        break;
+    case (rt_uint32_t)CM_SPI2:
+        (void)GPIO_StructInit(&stcGpioInit);
+        stcGpioInit.u16PinDrv = PIN_HIGH_DRV;
+        stcGpioInit.u16PinInputType = PIN_IN_TYPE_CMOS;
+        (void)GPIO_Init(SPI2_SCK_PORT,  SPI2_SCK_PIN,  &stcGpioInit);
+        (void)GPIO_Init(SPI2_MOSI_PORT, SPI2_MOSI_PIN, &stcGpioInit);
+        GPIO_SetFunc(SPI2_SCK_PORT,  SPI2_SCK_PIN,  SPI2_SCK_FUNC);
+        GPIO_SetFunc(SPI2_MOSI_PORT, SPI2_MOSI_PIN, SPI2_MOSI_FUNC);
+        #ifdef SPI2_MISO_PORT
+        (void)GPIO_Init(SPI2_MISO_PORT, SPI2_MISO_PIN, &stcGpioInit);
+        GPIO_SetFunc(SPI2_MISO_PORT, SPI2_MISO_PIN, SPI2_MISO_FUNC);
+        #endif
+        #ifdef SPI2_WP_PORT
+        GPIO_Init(SPI2_WP_PORT, SPI2_WP_PIN, &stcGpioInit);
+        #endif
+        #ifdef SPI2_HOLD_PORT
+        GPIO_Init(SPI2_HOLD_PORT, SPI2_HOLD_PIN, &stcGpioInit);
+        #endif
+
         break;
 #endif
     default:

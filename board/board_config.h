@@ -149,6 +149,23 @@
 //    #define SPI1_HOLD_PIN               (GPIO_PIN_02)
 #endif
 
+#if defined(BSP_USING_SPI2)
+//    #define SPI2_CS_PORT                (GPIO_PORT_A)
+//    #define SPI2_CS_PIN                 (GPIO_PIN_04)
+
+    #define SPI2_SCK_PORT               (GPIO_PORT_B)
+    #define SPI2_SCK_PIN                (GPIO_PIN_13)
+    #define SPI2_SCK_FUNC               (GPIO_FUNC_43)
+
+    #define SPI2_MOSI_PORT              (GPIO_PORT_B)
+    #define SPI2_MOSI_PIN               (GPIO_PIN_15)
+    #define SPI2_MOSI_FUNC              (GPIO_FUNC_44)
+
+//    #define SPI2_MISO_PORT              (GPIO_PORT_A)
+//    #define SPI2_MISO_PIN               (GPIO_PIN_06)
+//    #define SPI2_MISO_FUNC              (GPIO_FUNC_42)
+#endif
+
 /************************* ETH port ***********************/
 
 #if defined(BSP_USING_ETH)

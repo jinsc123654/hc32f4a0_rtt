@@ -1,0 +1,20 @@
+import rtconfig
+from building import *
+
+# get current directory
+cwd = GetCurrentDir()
+path = [cwd]
+
+
+# The set of source files associated with this SConscript file.
+
+#src = Split('''
+#*.c
+#''')
+
+src = Glob('*.c')
+
+
+group = DefineGroup('LVGL-port', src, depend = [''], CPPPATH = path)
+
+Return('group')

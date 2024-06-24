@@ -98,9 +98,7 @@ int main(void)
 //        }
 //    }
 //    cnt = 0;
-    LCD_Init();
-    LCD_Fill(0,0,LCD_W,LCD_H,GRAY);
-    LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
+
 
     while (1)
     {     
@@ -266,3 +264,6 @@ static int dac_sample(int argc, char *argv[])
 }
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(dac_sample, dac device sample);
+
+
+

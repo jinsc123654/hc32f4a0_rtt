@@ -472,6 +472,9 @@ extern "C" {
 #define BSP_USING_TMRA_12_IRQ_NUM       INT101_IRQn
 #define BSP_USING_TMRA_12_IRQ_PRIO      DDL_IRQ_PRIO_DEFAULT
 #endif/* BSP_USING_TMRA_12 */
+
+#define TX_DMA1_TC3_IRQn                (INT013_IRQn)
+#define SPI2_TX_CPLT_IRQn               (INT014_IRQn)
 #ifdef __cplusplus
 }
 #endif

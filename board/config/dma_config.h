@@ -112,6 +112,7 @@ extern "C" {
 
 /* DMA1 ch3 */
 #if defined(BSP_SPI2_TX_USING_DMA) && !defined(SPI2_TX_DMA_INSTANCE)
+/* 该配置是LCD配置 */
 #define SPI2_TX_DMA_INSTANCE            CM_DMA1
 #define SPI2_TX_DMA_CHANNEL             DMA_CH3
 #define SPI2_TX_DMA_CLOCK               (PWC_FCG0_DMA1 | PWC_FCG0_AOS)

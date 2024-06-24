@@ -43,6 +43,7 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
  *  STATIC VARIABLES
  **********************/
 static struct rt_spi_device *lcd_spi_dev; 
+static lv_disp_drv_t disp_drv;                         /*Descriptor of a display driver*/
 /**********************
  *      MACROS
  **********************/
@@ -106,7 +107,7 @@ void lv_port_disp_init(void)
      * Register the display in LVGL
      *----------------------------------*/
 
-    static lv_disp_drv_t disp_drv;                         /*Descriptor of a display driver*/
+//    static lv_disp_drv_t disp_drv;                         /*Descriptor of a display driver*/
     lv_disp_drv_init(&disp_drv);                    /*Basic initialization*/
 
     /*Set up the functions to access to your display*/
@@ -141,7 +142,7 @@ void lv_port_disp_init(void)
 static void disp_init(void)
 {
     /*You code here*/
-    LCD_Init();
+    //LCD_Init();
 //    LCD_Fill(0,0,LCD_W,LCD_H,GRAY);
 //    LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
     lcd_spi_dev = (struct rt_spi_device *)rt_device_find("spi_lcd");
@@ -167,6 +168,7 @@ void disp_disable_update(void)
  *You can use DMA or any hardware acceleration to do this operation in the background but
  *'lv_disp_flush_ready()' has to be called when finished.*/
 extern void LCD_Address_Set(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2);
+extern void spi_lcd_dma_send(void* src, size_t len);
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p)
 {
     if(disp_flush_enabled) {
@@ -174,26 +176,18 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
 
         int32_t w = area->x2 - area->x1 + 1;
         int32_t h = area->y2 - area->y1 + 1;
-        LCD_DC_Clr();//写命令
         LCD_Address_Set(area->x1, area->y1, area->x2, area->y2);
-        LCD_DC_Set();//写数据
-        struct rt_spi_message msg1;
-        msg1.send_buf   = color_p;
-        msg1.recv_buf   = RT_NULL;
-        msg1.length     = w*h*sizeof(lv_color_t);
-        msg1.cs_take    = 1;
-        msg1.cs_release = 1;
-        msg1.next       = RT_NULL;
-
-        rt_spi_transfer_message(lcd_spi_dev, &msg1);
-
+        spi_lcd_dma_send(color_p, w*h*sizeof(lv_color_t));
     }
 
     /*IMPORTANT!!!
      *Inform the graphics library that you are ready with the flushing*/
-    lv_disp_flush_ready(disp_drv);
+    //lv_disp_flush_ready(disp_drv);
 }
-
+void lv_disp_flush_ready_spi_cb(void)
+{
+  lv_disp_flush_ready(&disp_drv);
+}
 /*OPTIONAL: GPU INTERFACE*/
 
 /*If your MCU has hardware accelerator (GPU) then you can use it to fill a memory with a color*/

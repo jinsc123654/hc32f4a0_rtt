@@ -207,6 +207,7 @@ rt_err_t rt_hw_spi_board_init(CM_SPI_TypeDef *CM_SPIx)
         GPIO_SetFunc(SPI1_MOSI_PORT, SPI1_MOSI_PIN, SPI1_MOSI_FUNC);
         GPIO_SetFunc(SPI1_MISO_PORT, SPI1_MISO_PIN, SPI1_MISO_FUNC);
         break;
+    #if defined(BSP_USING_SPI2)
     case (rt_uint32_t)CM_SPI2:
         (void)GPIO_StructInit(&stcGpioInit);
         stcGpioInit.u16PinDrv = PIN_HIGH_DRV;
@@ -227,6 +228,7 @@ rt_err_t rt_hw_spi_board_init(CM_SPI_TypeDef *CM_SPIx)
         #endif
 
         break;
+    #endif
 #endif
     default:
         result = -RT_ERROR;

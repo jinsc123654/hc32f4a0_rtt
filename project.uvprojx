@@ -138,7 +138,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>__STDC_LIMIT_MACROS, RT_USING_ARMLIBC, USE_STDPERIPH_DRIVER, RT_USING_LIBC, __CLK_TCK=RT_TICK_PER_SECOND, USE_DDL_DRIVER, HC32F4A0, __RTTHREAD__, LFS_CONFIG=lfs_config.h, __DEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>board\ports\fal;rt-thread\components\drivers\include;applications\components\DAPLink\Source\target;libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\inc;rt-thread\components\libc\compilers\common\include;libraries\hc32_drivers;applications\flmparse;rt-thread\components\libc\posix\io\epoll;board;rt-thread\components\drivers\include;rt-thread\components\libc\posix\ipc;packages\littlefs-latest;applications\components\DAPLink\Source\hic_hal;applications\components\CherryRB;packages\CherryUSB-1.3.0\class\cdc;rt-thread\components\finsh;rt-thread\components\dfs\dfs_v1\filesystems\devfs;rt-thread\components\drivers\include;rt-thread\components\legacy\dfs;board\config\usb_config;.;rt-thread\components\drivers\include;applications\components\DAPLink\Source;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\legacy;packages\CherryUSB-1.3.0\osal;rt-thread\libcpu\arm\common;rt-thread\libcpu\arm\cortex-m4;packages\CherryUSB-1.3.0\class\vendor\serial;rt-thread\components\dfs\dfs_v1\include;packages\CherryUSB-1.3.0\class\dfu;rt-thread\components\libc\posix\io\poll;rt-thread\components\libc\compilers\common\extension\fcntl\octal;packages\CherryUSB-1.3.0\class\wireless;board\ports;board\config;rt-thread\components\drivers\spi\sfud\inc;rt-thread\components\drivers\spi;packages\CherryUSB-1.3.0\class\video;packages\CherryUSB-1.3.0\common;rt-thread\components\dfs\dfs_v1\filesystems\elmfat;packages\CherryUSB-1.3.0\class\midi;rt-thread\components\libc\posix\io\eventfd;applications\offline_download;packages\CherryUSB-1.3.0\class\msc;libraries\hc32f4a0_ddl\drivers\cmsis\Device\HDSC\hc32f4xx\Include;packages\CherryUSB-1.3.0\core;applications;packages\CherryUSB-1.3.0\class\vendor\net;rt-thread\components\utilities\ulog;applications\components\DAPLink\include;rt-thread\include;applications\components\DAPLink\Source\interface;rt-thread\components\libc\compilers\common\extension;rt-thread\components\drivers\include;rt-thread\components\drivers\include;libraries\hc32f4a0_ddl\drivers\cmsis\Include;rt-thread\components\fal\inc;libraries\hc32_drivers\drv_flash;packages\CherryUSB-1.3.0\class\hid;packages\CherryUSB-1.3.0\class\audio</IncludePath>
+              <IncludePath>rt-thread\components\drivers\include;rt-thread\components\drivers\include;applications\components\DAPLink\Source\target;libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\inc;rt-thread\components\libc\compilers\common\include;libraries\hc32_drivers;applications\flmparse;applications\offline_download;rt-thread\components\libc\posix\io\epoll;board;rt-thread\components\drivers\include;rt-thread\components\libc\posix\ipc;packages\littlefs-latest;applications\components\DAPLink\Source\hic_hal;applications\components\CherryRB;packages\CherryUSB-1.3.0\class\cdc;rt-thread\components\finsh;rt-thread\components\dfs\dfs_v1\filesystems\devfs;rt-thread\components\drivers\include;rt-thread\components\legacy\dfs;board\config\usb_config;.;rt-thread\components\drivers\include;applications\components\DAPLink\Source;rt-thread\components\drivers\include;rt-thread\components\drivers\include;rt-thread\components\legacy;packages\CherryUSB-1.3.0\osal;rt-thread\libcpu\arm\common;rt-thread\libcpu\arm\cortex-m4;packages\CherryUSB-1.3.0\class\vendor\serial;rt-thread\components\dfs\dfs_v1\include;packages\CherryUSB-1.3.0\class\dfu;packages\SEGGER_RTT-latest;rt-thread\components\libc\posix\io\poll;rt-thread\components\libc\compilers\common\extension\fcntl\octal;packages\CherryUSB-1.3.0\class\wireless;packages\SEGGER_RTT-latest\RTT;board\ports;board\config;rt-thread\components\drivers\spi\sfud\inc;rt-thread\components\drivers\spi;packages\CherryUSB-1.3.0\class\video;packages\CherryUSB-1.3.0\common;rt-thread\components\dfs\dfs_v1\filesystems\elmfat;packages\CherryUSB-1.3.0\class\midi;rt-thread\components\libc\posix\io\eventfd;board\ports\fal;packages\CherryUSB-1.3.0\class\msc;libraries\hc32f4a0_ddl\drivers\cmsis\Device\HDSC\hc32f4xx\Include;packages\CherryUSB-1.3.0\core;applications;packages\CherryUSB-1.3.0\class\vendor\net;rt-thread\components\utilities\ulog;applications\components\DAPLink\include;rt-thread\include;applications\components\DAPLink\Source\interface;rt-thread\components\libc\compilers\common\extension;rt-thread\components\drivers\include;rt-thread\components\drivers\include;libraries\hc32f4a0_ddl\drivers\cmsis\Include;rt-thread\components\fal\inc;libraries\hc32_drivers\drv_flash;packages\CherryUSB-1.3.0\class\hid;packages\CherryUSB-1.3.0\class\audio</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -384,9 +384,54 @@
           <GroupName>Applications</GroupName>
           <Files>
             <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb2uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\usb2uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\lcd_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>dap_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\dap_main.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>applications\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>dap_rtt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\dap_rtt.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\bsp_beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>xtal32_fcm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\xtal32_fcm.c</FilePath>
+            </File>
+            <File>
+              <FileName>dap_loop.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\dap_loop.c</FilePath>
+            </File>
+            <File>
+              <FileName>power_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\power_control.c</FilePath>
             </File>
             <File>
               <FileName>bsp_led.c</FileName>
@@ -398,41 +443,26 @@
               <FileType>1</FileType>
               <FilePath>applications\usb_app.c</FilePath>
             </File>
-            <File>
-              <FileName>usb2uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\usb2uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>power_control.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\power_control.c</FilePath>
-            </File>
-            <File>
-              <FileName>xtal32_fcm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\xtal32_fcm.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_beep.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\bsp_beep.c</FilePath>
-            </File>
-            <File>
-              <FileName>dap_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\dap_main.c</FilePath>
-            </File>
-            <File>
-              <FileName>dap_loop.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>applications\dap_loop.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>CherryUSB</GroupName>
           <Files>
+            <File>
+              <FileName>usbd_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\CherryUSB-1.3.0\core\usbd_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_glue_hc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\CherryUSB-1.3.0\port\dwc2\usb_glue_hc.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_hid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\CherryUSB-1.3.0\class\hid\usbd_hid.c</FilePath>
+            </File>
             <File>
               <FileName>usb_dc_dwc2.c</FileName>
               <FileType>1</FileType>
@@ -449,24 +479,9 @@
               <FilePath>packages\CherryUSB-1.3.0\third_party\rt-thread-5.0\usb_msh.c</FilePath>
             </File>
             <File>
-              <FileName>usbd_core.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\CherryUSB-1.3.0\core\usbd_core.c</FilePath>
-            </File>
-            <File>
               <FileName>usb_check.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\CherryUSB-1.3.0\third_party\rt-thread-5.0\usb_check.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_hid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\CherryUSB-1.3.0\class\hid\usbd_hid.c</FilePath>
-            </File>
-            <File>
-              <FileName>usb_glue_hc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\CherryUSB-1.3.0\port\dwc2\usb_glue_hc.c</FilePath>
             </File>
             <File>
               <FileName>usbd_cdc.c</FileName>
@@ -975,6 +990,118 @@
               <FileName>workqueue.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\drivers\ipc\workqueue.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>0</AlwaysBuild>
+                  <GenerateAssemblyFile>0</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>0</AssembleAssemblyFile>
+                  <PublicsOnly>0</PublicsOnly>
+                  <StopOnExitCode>3</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <uGnu>2</uGnu>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>2</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls>  --c99</MiscControls>
+                      <Define>__RT_IPC_SOURCE__</Define>
+                      <Undefine> </Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\drivers\misc\adc.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>0</AlwaysBuild>
+                  <GenerateAssemblyFile>0</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>0</AssembleAssemblyFile>
+                  <PublicsOnly>0</PublicsOnly>
+                  <StopOnExitCode>3</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <uGnu>2</uGnu>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>2</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls>  --c99</MiscControls>
+                      <Define>__RT_IPC_SOURCE__</Define>
+                      <Undefine> </Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>dac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\drivers\misc\dac.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -1893,9 +2020,19 @@
               <FilePath>libraries\hc32f4a0_ddl\drivers\cmsis\Device\HDSC\hc32f4xx\Source\ARM\startup_hc32f4a0.s</FilePath>
             </File>
             <File>
+              <FileName>drv_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32_drivers\drv_adc.c</FilePath>
+            </File>
+            <File>
               <FileName>drv_common.c</FileName>
               <FileType>1</FileType>
               <FilePath>libraries\hc32_drivers\drv_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_dac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32_drivers\drv_dac.c</FilePath>
             </File>
             <File>
               <FileName>drv_flash_f4.c</FileName>
@@ -1943,11 +2080,6 @@
           <GroupName>Fal</GroupName>
           <Files>
             <File>
-              <FileName>fal.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>rt-thread\components\fal\src\fal.c</FilePath>
-            </File>
-            <File>
               <FileName>fal_partition.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\fal\src\fal_partition.c</FilePath>
@@ -1956,6 +2088,11 @@
               <FileName>fal_rtt.c</FileName>
               <FileType>1</FileType>
               <FilePath>rt-thread\components\fal\src\fal_rtt.c</FilePath>
+            </File>
+            <File>
+              <FileName>fal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>rt-thread\components\fal\src\fal.c</FilePath>
             </File>
             <File>
               <FileName>fal_flash.c</FileName>
@@ -3024,6 +3161,11 @@
               <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll_fcg.c</FilePath>
             </File>
             <File>
+              <FileName>hc32_ll_fcm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll_fcm.c</FilePath>
+            </File>
+            <File>
               <FileName>hc32_ll_pwc.c</FileName>
               <FileType>1</FileType>
               <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll_pwc.c</FilePath>
@@ -3044,9 +3186,9 @@
               <FilePath>libraries\hc32f4a0_ddl\drivers\cmsis\Device\HDSC\hc32f4xx\Source\system_hc32f4a0.c</FilePath>
             </File>
             <File>
-              <FileName>hc32_ll_sdioc.c</FileName>
+              <FileName>hc32_ll_tmr0.c</FileName>
               <FileType>1</FileType>
-              <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll_sdioc.c</FilePath>
+              <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll_tmr0.c</FilePath>
             </File>
             <File>
               <FileName>hc32_ll_icg.c</FileName>
@@ -3069,9 +3211,9 @@
               <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll_aos.c</FilePath>
             </File>
             <File>
-              <FileName>hc32_ll_tmr0.c</FileName>
+              <FileName>hc32_ll_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll_tmr0.c</FilePath>
+              <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll_adc.c</FilePath>
             </File>
             <File>
               <FileName>hc32_ll_dma.c</FileName>
@@ -3094,9 +3236,14 @@
               <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll.c</FilePath>
             </File>
             <File>
-              <FileName>hc32_ll_fcm.c</FileName>
+              <FileName>hc32_ll_sdioc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll_fcm.c</FilePath>
+              <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll_sdioc.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc32_ll_dac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>libraries\hc32f4a0_ddl\drivers\hc32_ll_driver\src\hc32_ll_dac.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3159,6 +3306,16 @@
           <GroupName>littlefs</GroupName>
           <Files>
             <File>
+              <FileName>lfs_crc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\littlefs-latest\lfs_crc.c</FilePath>
+            </File>
+            <File>
+              <FileName>lfs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>packages\littlefs-latest\lfs.c</FilePath>
+            </File>
+            <File>
               <FileName>dfs_lfs.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\littlefs-latest\dfs_lfs.c</FilePath>
@@ -3167,16 +3324,6 @@
               <FileName>lfs_util.c</FileName>
               <FileType>1</FileType>
               <FilePath>packages\littlefs-latest\lfs_util.c</FilePath>
-            </File>
-            <File>
-              <FileName>lfs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\littlefs-latest\lfs.c</FilePath>
-            </File>
-            <File>
-              <FileName>lfs_crc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\littlefs-latest\lfs_crc.c</FilePath>
             </File>
           </Files>
         </Group>

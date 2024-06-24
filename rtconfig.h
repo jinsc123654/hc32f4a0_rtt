@@ -118,6 +118,8 @@
 #define RT_USING_SERIAL_V1
 #define RT_SERIAL_USING_DMA
 #define RT_SERIAL_RB_BUFSZ 64
+#define RT_USING_ADC
+#define RT_USING_DAC
 #define RT_USING_MTD_NOR
 #define RT_USING_RTC
 #define RT_USING_SDIO
@@ -334,10 +336,6 @@
 
 /* On-chip Drivers */
 
-#define BSP_USING_ON_CHIP_FLASH_CACHE
-#define BSP_USING_ON_CHIP_FLASH_ICODE_CACHE
-#define BSP_USING_ON_CHIP_FLASH_DCODE_CACHE
-#define BSP_USING_ON_CHIP_FLASH_ICODE_PREFETCH
 
 /* Onboard Peripheral Drivers */
 
@@ -358,6 +356,10 @@
 #define BSP_USING_SPI1
 #define BSP_SPI1_TX_USING_DMA
 #define BSP_SPI1_RX_USING_DMA
+#define BSP_USING_ADC
+#define BSP_USING_ADC1
+#define BSP_USING_DAC
+#define BSP_USING_DAC1
 #define BSP_USING_RTC
 #define BSP_RTC_USING_XTAL32
 #define BSP_USING_SDIO

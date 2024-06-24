@@ -100,7 +100,7 @@ This information includes:
 /// This configuration settings is used to optimize the communication performance with the
 /// debugger and depends on the USB peripheral. For devices with limited RAM or USB buffer the
 /// setting can be reduced (valid range is 1 .. 255).
-#define DAP_PACKET_COUNT        8U              ///< Specifies number of packets buffered.
+#define DAP_PACKET_COUNT        64U              ///< Specifies number of packets buffered.
 
 /// Indicate that UART Serial Wire Output (SWO) trace is available.
 /// This information is returned by the command \ref DAP_Info as part of <b>Capabilities</b>.
@@ -303,7 +303,7 @@ of the same I/O port. The following SWDIO I/O Pin functions are provided:
  - \ref PIN_SWDIO_OUT to write to the SWDIO I/O pin with utmost possible speed.
 */
 
-
+extern char volatile current_dap_mode;
 // Configure DAP I/O pins ------------------------------
 
 /** Setup JTAG I/O pins: TCK, TMS, TDI, TDO, nTRST, and nRESET.
@@ -347,6 +347,7 @@ Configures the DAP Hardware I/O pins for JTAG mode:
 
 __STATIC_INLINE void PORT_JTAG_SETUP (void) 
 {
+    current_dap_mode = 2;
     rt_pin_mode(JTAG_TCK_PIN, PIN_MODE_OUTPUT);
     rt_pin_mode(JTAG_TMS_PIN, PIN_MODE_OUTPUT);
     rt_pin_mode(JTAG_TDI_PIN, PIN_MODE_OUTPUT);
@@ -366,6 +367,7 @@ Configures the DAP Hardware I/O pins for Serial Wire Debug (SWD) mode:
  - TDI, nTRST to HighZ mode (pins are unused in SWD mode).
 */
 __STATIC_INLINE void PORT_SWD_SETUP (void) {
+    current_dap_mode = 1;
     rt_pin_mode(JTAG_TCK_PIN, PIN_MODE_OUTPUT);
     rt_pin_mode(JTAG_TMS_PIN, PIN_MODE_OUTPUT);
     rt_pin_mode(JTAG_nRESET_PIN, PIN_MODE_OUTPUT);
@@ -541,6 +543,7 @@ __STATIC_FORCEINLINE uint32_t PIN_nRESET_IN  (void) {
            - 0: issue a device hardware reset.
            - 1: release device hardware reset.
 */
+extern void reinit_jlinkrtt_dap(void);
 __STATIC_FORCEINLINE void     PIN_nRESET_OUT (uint32_t bit) {
   if ((bit & 1U) == 0U) 
   {
@@ -548,6 +551,7 @@ __STATIC_FORCEINLINE void     PIN_nRESET_OUT (uint32_t bit) {
       rt_pin_mode(JTAG_nRESET_PIN, PIN_MODE_OUTPUT);
       extern  void soft_reset_target(void);
       soft_reset_target();
+      reinit_jlinkrtt_dap();
   } 
   else 
   {

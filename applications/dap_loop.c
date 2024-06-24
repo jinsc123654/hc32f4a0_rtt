@@ -23,9 +23,9 @@
 #define DAP_THREAD_PRIORITY         30
 #define DAP_THREAD_TIMESLICE        20
 
-static uint32_t IDCODE = 0x00000000;
+static uint32_t IDCODE = 0x00000000;    /* DAP读取的ID 该值不为0时表示成功连接到芯片 */
 
-char volatile current_dap_mode = 0;
+char volatile current_dap_mode = 0;/* 当前DAP的运行模式 0为为运行 1为SWD 2位JTAG */
 
 extern  DAP_Data_t DAP_Data;           // DAP Data
 
@@ -48,6 +48,8 @@ static void dap_thread_entry(void *param)
     {
         chry_dap_handle();
         chry_dap_usb2uart_handle();
+        chry_dap_rtt_handle();
+        
 
         if ((rt_tick_get() % 300 == 0)
             && (is_on_offline_swd_downloading() == 0))

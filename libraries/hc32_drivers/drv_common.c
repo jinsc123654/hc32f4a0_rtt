@@ -93,6 +93,10 @@ void rt_hw_board_init()
     rt_system_heap_init((void *)HEAP_BEGIN, (void *)HEAP_END);
 #endif
 
+/* DEBUG */
+GPIO_SetDebugPort(GPIO_PIN_TDI, DISABLE);
+GPIO_SetDebugPort(GPIO_PIN_SWO, DISABLE);
+GPIO_SetDebugPort(GPIO_PIN_TRST, DISABLE);
 #ifdef RT_USING_PIN
     rt_hw_pin_init();
 #endif
@@ -102,7 +106,14 @@ void rt_hw_board_init()
 #endif
 
 #if defined(RT_USING_CONSOLE) && defined(RT_USING_DEVICE)
-    rt_console_set_device(RT_CONSOLE_DEVICE_NAME);
+#ifndef PKG_USING_SEGGER_RTT
+#if defined(RT_USING_CONSOLE) && defined(RT_USING_DEVICE)
+  rt_console_set_device(RT_CONSOLE_DEVICE_NAME);
+#endif
+#else
+    extern int rt_hw_jlink_console_init(void);
+    rt_hw_jlink_console_init();
+#endif
 #endif
 
     /* Board underlying hardware initialization */

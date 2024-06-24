@@ -59,6 +59,10 @@ static volatile int __rt_errno;
 
 #if defined(RT_USING_DEVICE) && defined(RT_USING_CONSOLE)
 static rt_device_t _console_device = RT_NULL;
+rt_device_t get_console_device(void)
+{
+    return _console_device;
+}
 #endif
 
 rt_weak void rt_hw_us_delay(rt_uint32_t us)

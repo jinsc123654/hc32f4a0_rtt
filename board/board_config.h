@@ -56,8 +56,27 @@
 
 /***********  ADC configure *********/
 #if defined(BSP_USING_ADC1)
-    #define ADC1_CH_PORT                    (GPIO_PORT_C)
-    #define ADC1_CH_PIN                     (GPIO_PIN_00)
+
+    #define ADC1_CH3_PORT                    (GPIO_PORT_A)  /* PD输出电流2 */
+    #define ADC1_CH3_PIN                     (GPIO_PIN_03)
+
+    #define ADC1_CH10_PORT                   (GPIO_PORT_C)  /* 5V输出电压 */
+    #define ADC1_CH10_PIN                    (GPIO_PIN_00)
+
+    #define ADC1_CH11_PORT                   (GPIO_PORT_C)  /* 5V输出电流 */
+    #define ADC1_CH11_PIN                    (GPIO_PIN_01)
+
+    #define ADC1_CH12_PORT                   (GPIO_PORT_C)  /* 3.3V输出电压 */
+    #define ADC1_CH12_PIN                    (GPIO_PIN_02)
+
+    #define ADC1_CH13_PORT                   (GPIO_PORT_C)  /* 3.3V输出电流 */
+    #define ADC1_CH13_PIN                    (GPIO_PIN_03)
+
+    #define ADC1_CH14_PORT                   (GPIO_PORT_C)
+    #define ADC1_CH14_PIN                    (GPIO_PIN_04)  /* PD输出电压 */
+    
+    #define ADC1_CH15_PORT                   (GPIO_PORT_C)
+    #define ADC1_CH15_PIN                    (GPIO_PIN_05)  /* PD输出电流1 */
 #endif
 
 #if defined(BSP_USING_ADC2)

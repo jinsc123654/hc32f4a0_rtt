@@ -82,7 +82,13 @@ rt_err_t rt_hw_board_adc_init(CM_ADC_TypeDef *ADCx)
     {
 #if defined(BSP_USING_ADC1)
     case (rt_uint32_t)CM_ADC1:
-        (void)GPIO_Init(ADC1_CH_PORT, ADC1_CH_PIN, &stcGpioInit);
+        (void)GPIO_Init(ADC1_CH3_PORT, ADC1_CH3_PIN, &stcGpioInit);
+        (void)GPIO_Init(ADC1_CH10_PORT, ADC1_CH10_PIN, &stcGpioInit);
+        (void)GPIO_Init(ADC1_CH11_PORT, ADC1_CH11_PIN, &stcGpioInit);
+        (void)GPIO_Init(ADC1_CH12_PORT, ADC1_CH12_PIN, &stcGpioInit);
+        (void)GPIO_Init(ADC1_CH13_PORT, ADC1_CH13_PIN, &stcGpioInit);
+        (void)GPIO_Init(ADC1_CH14_PORT, ADC1_CH14_PIN, &stcGpioInit);
+        (void)GPIO_Init(ADC1_CH15_PORT, ADC1_CH15_PIN, &stcGpioInit);
         break;
 #endif
 #if defined(BSP_USING_ADC2)

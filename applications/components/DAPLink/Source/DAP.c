@@ -1636,6 +1636,7 @@ __WEAK uint32_t DAP_ProcessVendorCommand(const uint8_t *request, uint8_t *respon
 //   response: pointer to response data
 //   return:   number of bytes in response (lower 16 bits)
 //             number of bytes in request (upper 16 bits)
+static uint8_t test_response;
 uint32_t DAP_ProcessCommand(const uint8_t *request, uint8_t *response) {
   uint32_t num;
 
@@ -1644,7 +1645,8 @@ uint32_t DAP_ProcessCommand(const uint8_t *request, uint8_t *response) {
   }
 
   *response++ = *request;
-
+  test_response = *request;
+  test_response = test_response;
   switch (*request++) {
     case ID_DAP_Info:
       num = DAP_Info(*request, response+1);

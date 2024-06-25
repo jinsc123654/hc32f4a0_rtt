@@ -740,6 +740,194 @@ menu "On-chip Peripheral Drivers"
                                 bool "Enable timerA-1 channel4"
                                 default n
                         endif
+                    menuconfig BSP_USING_PWM_TMRA_2
+                        bool "Enable timerA-2 output PWM"
+                        default n
+                        if BSP_USING_PWM_TMRA_2
+                            config BSP_USING_PWM_TMRA_2_CH1
+                                bool "Enable timerA-2 channel1"
+                                default n
+                            config BSP_USING_PWM_TMRA_2_CH2
+                                bool "Enable timerA-2 channel2"
+                                default n
+                            config BSP_USING_PWM_TMRA_2_CH3
+                                bool "Enable timerA-2 channel3"
+                                default n
+                            config BSP_USING_PWM_TMRA_2_CH4
+                                bool "Enable timerA-2 channel4"
+                                default n
+                        endif
+                    menuconfig BSP_USING_PWM_TMRA_3
+                        bool "Enable timerA-3 output PWM"
+                        default n
+                        if BSP_USING_PWM_TMRA_3
+                            config BSP_USING_PWM_TMRA_3_CH1
+                                bool "Enable timerA-3 channel1"
+                                default n
+                            config BSP_USING_PWM_TMRA_3_CH2
+                                bool "Enable timerA-3 channel2"
+                                default n
+                            config BSP_USING_PWM_TMRA_3_CH3
+                                bool "Enable timerA-3 channel3"
+                                default n
+                            config BSP_USING_PWM_TMRA_3_CH4
+                                bool "Enable timerA-3 channel4"
+                                default n
+                        endif
+                    menuconfig BSP_USING_PWM_TMRA_4
+                        bool "Enable timerA-4 output PWM"
+                        default n
+                        if BSP_USING_PWM_TMRA_4
+                            config BSP_USING_PWM_TMRA_4_CH1
+                                bool "Enable timerA-4 channel1"
+                                default n
+                            config BSP_USING_PWM_TMRA_4_CH2
+                                bool "Enable timerA-4 channel2"
+                                default n
+                            config BSP_USING_PWM_TMRA_4_CH3
+                                bool "Enable timerA-4 channel3"
+                                default n
+                            config BSP_USING_PWM_TMRA_4_CH4
+                                bool "Enable timerA-4 channel4"
+                                default n
+                        endif
+                    menuconfig BSP_USING_PWM_TMRA_5
+                        bool "Enable timerA-5 output PWM"
+                        default n
+                        if BSP_USING_PWM_TMRA_5
+                            config BSP_USING_PWM_TMRA_5_CH1
+                                bool "Enable timerA-5 channel1"
+                                default n
+                            config BSP_USING_PWM_TMRA_5_CH2
+                                bool "Enable timerA-5 channel2"
+                                default n
+                            config BSP_USING_PWM_TMRA_5_CH3
+                                bool "Enable timerA-5 channel3"
+                                default n
+                            config BSP_USING_PWM_TMRA_5_CH4
+                                bool "Enable timerA-5 channel4"
+                                default n
+                        endif
+                    menuconfig BSP_USING_PWM_TMRA_6
+                        bool "Enable timerA-6 output PWM"
+                        default n
+                        if BSP_USING_PWM_TMRA_6
+                            config BSP_USING_PWM_TMRA_6_CH1
+                                bool "Enable timerA-6 channel1"
+                                default n
+                            config BSP_USING_PWM_TMRA_6_CH2
+                                bool "Enable timerA-6 channel2"
+                                default n
+                            config BSP_USING_PWM_TMRA_6_CH3
+                                bool "Enable timerA-6 channel3"
+                                default n
+                            config BSP_USING_PWM_TMRA_6_CH4
+                                bool "Enable timerA-6 channel4"
+                                default n
+                        endif
+                    menuconfig BSP_USING_PWM_TMRA_7
+                        bool "Enable timerA-7 output PWM"
+                        default n
+                        if BSP_USING_PWM_TMRA_7
+                            config BSP_USING_PWM_TMRA_7_CH1
+                                bool "Enable timerA-7 channel1"
+                                default n
+                            config BSP_USING_PWM_TMRA_7_CH2
+                                bool "Enable timerA-7 channel2"
+                                default n
+                            config BSP_USING_PWM_TMRA_7_CH3
+                                bool "Enable timerA-7 channel3"
+                                default n
+                            config BSP_USING_PWM_TMRA_7_CH4
+                                bool "Enable timerA-7 channel4"
+                                default n
+                        endif
+                    menuconfig BSP_USING_PWM_TMRA_8
+                        bool "Enable timerA-8 output PWM"
+                        default n
+                        if BSP_USING_PWM_TMRA_8
+                            config BSP_USING_PWM_TMRA_8_CH1
+                                bool "Enable timerA-8 channel1"
+                                default n
+                            config BSP_USING_PWM_TMRA_8_CH2
+                                bool "Enable timerA-8 channel2"
+                                default n
+                            config BSP_USING_PWM_TMRA_8_CH3
+                                bool "Enable timerA-8 channel3"
+                                default n
+                            config BSP_USING_PWM_TMRA_8_CH4
+                                bool "Enable timerA-8 channel4"
+                                default n
+                        endif
+                    menuconfig BSP_USING_PWM_TMRA_9
+                        bool "Enable timerA-9 output PWM"
+                        default n
+                        if BSP_USING_PWM_TMRA_9
+                            config BSP_USING_PWM_TMRA_9_CH1
+                                bool "Enable timerA-9 channel1"
+                                default n
+                            config BSP_USING_PWM_TMRA_9_CH2
+                                bool "Enable timerA-9 channel2"
+                                default n
+                            config BSP_USING_PWM_TMRA_9_CH3
+                                bool "Enable timerA-9 channel3"
+                                default n
+                            config BSP_USING_PWM_TMRA_9_CH4
+                                bool "Enable timerA-9 channel4"
+                                default n
+                        endif  
+                      menuconfig BSP_USING_PWM_TMRA_10
+                        bool "Enable timerA-10 output PWM"
+                        default n
+                        if BSP_USING_PWM_TMRA_10
+                            config BSP_USING_PWM_TMRA_10_CH1
+                                bool "Enable timerA-10 channel1"
+                                default n
+                            config BSP_USING_PWM_TMRA_10_CH2
+                                bool "Enable timerA-10 channel2"
+                                default n
+                            config BSP_USING_PWM_TMRA_10_CH3
+                                bool "Enable timerA-10 channel3"
+                                default n
+                            config BSP_USING_PWM_TMRA_10_CH4
+                                bool "Enable timerA-10 channel4"
+                                default n
+                        endif
+                    menuconfig BSP_USING_PWM_TMRA_11
+                        bool "Enable timerA-11 output PWM"
+                        default n
+                        if BSP_USING_PWM_TMRA_11
+                            config BSP_USING_PWM_TMRA_11_CH1
+                                bool "Enable timerA-11 channel1"
+                                default n
+                            config BSP_USING_PWM_TMRA_11_CH2
+                                bool "Enable timerA-11 channel2"
+                                default n
+                            config BSP_USING_PWM_TMRA_11_CH3
+                                bool "Enable timerA-11 channel3"
+                                default n
+                            config BSP_USING_PWM_TMRA_11_CH4
+                                bool "Enable timerA-11 channel4"
+                                default n
+                        endif
+                    menuconfig BSP_USING_PWM_TMRA_12
+                        bool "Enable timerA-12 output PWM"
+                        default n
+                        if BSP_USING_PWM_TMRA_12
+                            config BSP_USING_PWM_TMRA_12_CH1
+                                bool "Enable timerA-12 channel1"
+                                default n
+                            config BSP_USING_PWM_TMRA_12_CH2
+                                bool "Enable timerA-12 channel2"
+                                default n
+                            config BSP_USING_PWM_TMRA_12_CH3
+                                bool "Enable timerA-12 channel3"
+                                default n
+                            config BSP_USING_PWM_TMRA_12_CH4
+                                bool "Enable timerA-12 channel4"
+                                default n
+                        endif
+ 
                 endif
             menuconfig BSP_USING_PWM_TMR4
                 bool "Enable timer4 output PWM"

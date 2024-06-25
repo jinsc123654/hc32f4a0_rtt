@@ -4,6 +4,9 @@
 #include <drv_spi.h>
 #include "board_config.h"
 
+#define PWM_DEV_NAME        "pwm_a7"  /* 背光的PWM设备名称 */
+#define PWM_DEV_CHANNEL     2         /* PWM通道 */
+static struct rt_device_pwm *pwm_dev;      /* PWM设备句柄 */
 
 // 下方配置来自 #include "board_config.h"
 #define SPI2_SCK_PORT               (GPIO_PORT_B)
@@ -43,7 +46,7 @@
 #define LCD_CS  GET_PIN(B, 12)
 #define LCD_RST GET_PIN(E, 14)
 #define LCD_DC  GET_PIN(E, 15)
-#define LCD_BLK GET_PIN(B, 14)
+//#define LCD_BLK GET_PIN(B, 14)
                       
 #define LCD_RES_Clr()  rt_pin_write(LCD_RST, 0);
 #define LCD_RES_Set()  rt_pin_write(LCD_RST, 1);
@@ -54,8 +57,8 @@
 #define LCD_CS_Clr()   rt_pin_write(LCD_CS, 0);
 #define LCD_CS_Set()   rt_pin_write(LCD_CS, 0);
                        
-#define LCD_BLK_Clr()  rt_pin_write(LCD_BLK, 1);
-#define LCD_BLK_Set()  rt_pin_write(LCD_BLK, 0);
+#define LCD_BLK_Clr()  //rt_pin_write(LCD_BLK, 1);
+#define LCD_BLK_Set()  //rt_pin_write(LCD_BLK, 0);
 
 
 static volatile uint8_t dma_tx_in = 0;
@@ -139,12 +142,12 @@ static void SPI_Config(void)
     rt_pin_mode(LCD_CS, PIN_MODE_OUTPUT);
     rt_pin_mode(LCD_RST, PIN_MODE_OUTPUT);
     rt_pin_mode(LCD_DC, PIN_MODE_OUTPUT);
-    rt_pin_mode(LCD_BLK, PIN_MODE_OUTPUT);
+//    rt_pin_mode(LCD_BLK, PIN_MODE_OUTPUT);
     
     rt_pin_write(LCD_CS, 1);
     rt_pin_write(LCD_RST, 1);
     rt_pin_write(LCD_DC, 1);
-    rt_pin_write(LCD_BLK, 1);
+//    rt_pin_write(LCD_BLK, 1);
     
 }
 
@@ -369,14 +372,23 @@ void LCD_Address_Set(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2)
 /******************************************************************************/
 /**********************************LCD 驱动框架**********************************/
 /******************************************************************************/
-#define EXAMPLE_PERIPH_WE               (LL_PERIPH_GPIO | LL_PERIPH_EFM | LL_PERIPH_FCG | \
-                                         LL_PERIPH_PWC_CLK_RMU | LL_PERIPH_SRAM)
 
 static int lcd_device_reg(void)
 {
-    LL_PERIPH_WE(EXAMPLE_PERIPH_WE);
+    pwm_dev = (struct rt_device_pwm *)rt_device_find(PWM_DEV_NAME);
+    if (pwm_dev == RT_NULL)
+    {
+        rt_kprintf("pwm sample run failed! can't find %s device!\n", PWM_DEV_NAME);
+        return RT_ERROR;
+    }
+    /* 设置PWM周期和脉冲宽度默认值 */
+    rt_pwm_set(pwm_dev, PWM_DEV_CHANNEL, 500000, 0);
+    /* 使能设备 */
+    rt_pwm_enable(pwm_dev, PWM_DEV_CHANNEL);
+    
     SPI_Config();
     DMA_Config();
     lcd_dev_init();
 }
-INIT_DEVICE_EXPORT(lcd_device_reg);
+INIT_COMPONENT_EXPORT(lcd_device_reg);
+

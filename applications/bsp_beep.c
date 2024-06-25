@@ -13,30 +13,30 @@
 #include <board.h>
 #include <bsp_beep.h>
 
+#define PWM_DEV_NAME        "pwm_a4"  /* PWM设备名称 */
+#define PWM_DEV_CHANNEL     4       /* PWM通道 */
+struct rt_device_pwm *beep_pwm_dev;      /* PWM设备句柄 */
+
 /**
  -  @brief  蜂鸣器PWM引脚初始化
  -  @note   None
  -  @param  None
  -  @retval None
    */
-static void beep_pwm_gpio_init(void)
+static void beep_driver_init(void)
 {
     // servo pwm gpio init
-
-    return;
-}
-
-/**
- -  @brief  蜂鸣器定时器初始化
- -  @note   None
- -  @param  None
- -  @retval None
-   */
-static void beep_timer_init(void)
-{
-    // beep pwm timer init
-
-
+    /* 查找设备 */
+    beep_pwm_dev = (struct rt_device_pwm *)rt_device_find(PWM_DEV_NAME);
+    if (beep_pwm_dev == RT_NULL)
+    {
+        rt_kprintf("pwm sample run failed! can't find %s device!\n", PWM_DEV_NAME);
+        return;
+    }
+    /* 设置PWM周期和脉冲宽度默认值 */
+    rt_pwm_set(beep_pwm_dev, PWM_DEV_CHANNEL, 500000, 0);
+    /* 使能设备 */
+    rt_pwm_enable(beep_pwm_dev, PWM_DEV_CHANNEL);
     return;
 }
 
@@ -48,7 +48,11 @@ static void beep_timer_init(void)
    */
 void buzzer_beep_set(uint16_t _tone_freq, uint8_t _volume)
 {
-
+  if(beep_pwm_dev != RT_NULL)
+  {
+    uint32_t _tone_time = 1000*1000*1000 / _tone_freq;/* ns与周期转换 1 / freq * 10^9 */
+    rt_pwm_set(beep_pwm_dev, PWM_DEV_CHANNEL, _tone_time, _tone_time * _volume / 100);    
+  }
 }
 
 
@@ -58,10 +62,10 @@ void buzzer_beep_set(uint16_t _tone_freq, uint8_t _volume)
  -  @param  None
  -  @retval RT_EOK
    */
-int beep_init(void)
+static int beep_init(void)
 {
-    beep_pwm_gpio_init();
-    beep_timer_init();
+    beep_driver_init();
+    buzzer_beep_set(1*1000, 0);
     return 1;
 }
-INIT_PREV_EXPORT(beep_init);
+INIT_COMPONENT_EXPORT(beep_init);

@@ -510,8 +510,8 @@
     /***********  PWM_TMRA configure *********/
     #if defined(BSP_USING_PWM_TMRA_1)
         #if defined(BSP_USING_PWM_TMRA_1_CH1)
-            #define PWM_TMRA_1_CH1_PORT             (GPIO_PORT_A)
-            #define PWM_TMRA_1_CH1_PIN              (GPIO_PIN_08)
+            #define PWM_TMRA_1_CH1_PORT             (GPIO_PORT_E)
+            #define PWM_TMRA_1_CH1_PIN              (GPIO_PIN_09)
             #define PWM_TMRA_1_CH1_PIN_FUNC         (GPIO_FUNC_4)
         #endif
         #if defined(BSP_USING_PWM_TMRA_1_CH2)
@@ -530,6 +530,50 @@
             #define PWM_TMRA_1_CH4_PIN_FUNC         (GPIO_FUNC_4)
         #endif
     #endif
+#if defined(BSP_USING_PWM_TMRA_4)
+        #if defined(BSP_USING_PWM_TMRA_4_CH1)
+            #define PWM_TMRA_4_CH1_PORT             (GPIO_PORT_A)
+            #define PWM_TMRA_4_CH1_PIN              (GPIO_PIN_08)
+            #define PWM_TMRA_4_CH1_PIN_FUNC         (GPIO_FUNC_4)
+        #endif
+        #if defined(BSP_USING_PWM_TMRA_4_CH2)
+            #define PWM_TMRA_4_CH2_PORT             (GPIO_PORT_B)
+            #define PWM_TMRA_4_CH2_PIN              (GPIO_PIN_14)
+            #define PWM_TMRA_4_CH2_PIN_FUNC         (GPIO_FUNC_4)
+        #endif
+        #if defined(BSP_USING_PWM_TMRA_4_CH3)
+            #define PWM_TMRA_4_CH3_PORT             (GPIO_PORT_A)
+            #define PWM_TMRA_4_CH3_PIN              (GPIO_PIN_10)
+            #define PWM_TMRA_4_CH3_PIN_FUNC         (GPIO_FUNC_4)
+        #endif
+        #if defined(BSP_USING_PWM_TMRA_4_CH4)
+            #define PWM_TMRA_4_CH4_PORT             (GPIO_PORT_B)
+            #define PWM_TMRA_4_CH4_PIN              (GPIO_PIN_09)
+            #define PWM_TMRA_4_CH4_PIN_FUNC         (GPIO_FUNC_4)
+        #endif
+    #endif
+#if defined(BSP_USING_PWM_TMRA_7)
+        #if defined(BSP_USING_PWM_TMRA_7_CH1)
+            #define PWM_TMRA_7_CH1_PORT             (GPIO_PORT_A)
+            #define PWM_TMRA_7_CH1_PIN              (GPIO_PIN_08)
+            #define PWM_TMRA_7_CH1_PIN_FUNC         (GPIO_FUNC_4)
+        #endif
+        #if defined(BSP_USING_PWM_TMRA_7_CH2)
+            #define PWM_TMRA_7_CH2_PORT             (GPIO_PORT_B)
+            #define PWM_TMRA_7_CH2_PIN              (GPIO_PIN_14)
+            #define PWM_TMRA_7_CH2_PIN_FUNC         (GPIO_FUNC_4)
+        #endif
+        #if defined(BSP_USING_PWM_TMRA_7_CH3)
+            #define PWM_TMRA_7_CH3_PORT             (GPIO_PORT_A)
+            #define PWM_TMRA_7_CH3_PIN              (GPIO_PIN_10)
+            #define PWM_TMRA_7_CH3_PIN_FUNC         (GPIO_FUNC_4)
+        #endif
+        #if defined(BSP_USING_PWM_TMRA_7_CH4)
+            #define PWM_TMRA_7_CH4_PORT             (GPIO_PORT_A)
+            #define PWM_TMRA_7_CH4_PIN              (GPIO_PIN_11)
+            #define PWM_TMRA_7_CH4_PIN_FUNC         (GPIO_FUNC_4)
+        #endif
+#endif
 
     /***********  PWM_TMR4 configure *********/
     #if defined(BSP_USING_PWM_TMR4_1)

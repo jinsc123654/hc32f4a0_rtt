@@ -38,7 +38,7 @@ static struct rt_device_pwm *pwm_dev;      /* PWM设备句柄 */
 #define TX_DMA_TC_INT_SRC               (INT_SRC_DMA1_TC3)
 
 /* SPI interrupt definition */
-#define SPI_TX_CPLT_IRQn                (SPI2_TX_CPLT_IRQn)
+#define SPI_TX_CPLT_IRQn                (SPI2_TX_SPII_IRQn)
 #define SPI_TX_CPLT_INT_SRC             (INT_SRC_SPI2_SPII)
 
 //#define LCD_CLK GET_PIN(B, 13)
@@ -70,18 +70,18 @@ static struct rt_spi_device *lcd_dev;
  * @param  None
  * @retval None
  */
-static void TX_DMA_TC_IrqCallback(void)
+void DMA1_TC3_IrqHandler(void)
 {
     SPI_IntCmd(SPI_UNIT, SPI_INT_IDLE, ENABLE);
     DMA_ClearTransCompleteStatus(TX_DMA_UNIT, TX_DMA_TC_FLAG);
 }
 
 /**
- * @brief  SPI TC 束回调
+ * @brief  SPI 空闲中断回调
  * @param  None
  * @retval None
  */
-static void SPI_TxComplete_IrqCallback(void)
+void SPI2_Idle_IrqHandler(void)
 {
     DMA_ChCmd(TX_DMA_UNIT, TX_DMA_CH, DISABLE);
     SPI_Cmd(SPI_UNIT, DISABLE);
@@ -100,7 +100,6 @@ static void SPI_Config(void)
 {
     stc_spi_init_t stcSpiInit;
     stc_gpio_init_t stcGpioInit;
-    stc_irq_signin_config_t stcIrqSigninConfig;
 
     (void)GPIO_StructInit(&stcGpioInit);
     stcGpioInit.u16PinDrv       = PIN_HIGH_DRV;
@@ -130,6 +129,15 @@ static void SPI_Config(void)
     (void)SPI_Init(SPI_UNIT, &stcSpiInit);
     
     
+#if 1   /* 启用共享中断 */
+        (void)INTC_ShareIrqCmd(SPI_TX_CPLT_INT_SRC, ENABLE);
+        /* NVIC config */
+        NVIC_ClearPendingIRQ(SPI_TX_CPLT_IRQn);
+        NVIC_SetPriority(SPI_TX_CPLT_IRQn, DDL_IRQ_PRIO_DEFAULT);
+        NVIC_EnableIRQ(SPI_TX_CPLT_IRQn);
+#endif
+#if 0   /* 启用独享中断 */
+    stc_irq_signin_config_t stcIrqSigninConfig;
     /* Register TX complete IRQ handler. */
     stcIrqSigninConfig.enIRQn = SPI_TX_CPLT_IRQn;
     stcIrqSigninConfig.enIntSrc = SPI_TX_CPLT_INT_SRC;
@@ -138,6 +146,7 @@ static void SPI_Config(void)
     NVIC_ClearPendingIRQ(stcIrqSigninConfig.enIRQn);
     NVIC_SetPriority(stcIrqSigninConfig.enIRQn, DDL_IRQ_PRIO_DEFAULT);
     NVIC_EnableIRQ(stcIrqSigninConfig.enIRQn);
+#endif
     
     rt_pin_mode(LCD_CS, PIN_MODE_OUTPUT);
     rt_pin_mode(LCD_RST, PIN_MODE_OUTPUT);
@@ -163,7 +172,6 @@ static int32_t DMA_Config(void)
 {
     int32_t i32Ret;
     stc_dma_init_t stcDmaInit;
-    stc_irq_signin_config_t stcIrqSignConfig;
 
     /* DMA&AOS FCG enable */
     TX_DMA_FCG_ENABLE();
@@ -181,6 +189,15 @@ static int32_t DMA_Config(void)
     stcDmaInit.u32DestAddrInc = DMA_DEST_ADDR_FIX;
     i32Ret = DMA_Init(TX_DMA_UNIT, TX_DMA_CH, &stcDmaInit);
     if (LL_OK == i32Ret) {
+#if 1   /* 启用共享中断 */
+        (void)INTC_ShareIrqCmd(TX_DMA_TC_INT_SRC, ENABLE);
+        /* NVIC config */
+        NVIC_ClearPendingIRQ(TX_DMA_TC_IRQn);
+        NVIC_SetPriority(TX_DMA_TC_IRQn, DDL_IRQ_PRIO_DEFAULT);
+        NVIC_EnableIRQ(TX_DMA_TC_IRQn);
+#endif
+#if 0   /* 启用独享中断 */
+        stc_irq_signin_config_t stcIrqSignConfig;
         stcIrqSignConfig.enIntSrc = TX_DMA_TC_INT_SRC;
         stcIrqSignConfig.enIRQn  = TX_DMA_TC_IRQn;
         stcIrqSignConfig.pfnCallback = &TX_DMA_TC_IrqCallback;
@@ -188,6 +205,7 @@ static int32_t DMA_Config(void)
         NVIC_ClearPendingIRQ(stcIrqSignConfig.enIRQn);
         NVIC_SetPriority(stcIrqSignConfig.enIRQn, DDL_IRQ_PRIO_DEFAULT);
         NVIC_EnableIRQ(stcIrqSignConfig.enIRQn);
+#endif
 
         AOS_SetTriggerEventSrc(TX_DMA_TRIG_SEL, TX_DMA_TRIG_EVT_SRC);
 

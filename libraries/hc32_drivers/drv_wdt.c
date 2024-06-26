@@ -14,7 +14,7 @@
 #ifdef BSP_USING_WDT_TMR
 #include <math.h>
 #include <string.h>
-
+#include <irq_config.h>
 // #define DRV_DEBUG
 #define LOG_TAG             "drv_wdt"
 #include <drv_log.h>
@@ -147,6 +147,10 @@ static rt_uint32_t wdt_get_timeleft_s(void)
     return ((rt_uint32_t)(WDT_GetCountValue() * wdt_match[hc32_wdt.index].u32ClockDiv / (float)hc32_wdt.pclk3));
 }
 
+static void WDT_IrqCallback(void)
+{
+    rt_hw_cpu_reset();
+}
 static rt_err_t _wdt_init(rt_watchdog_t *wdt)
 {
     hc32_wdt.pclk3 = CLK_GetBusClockFreq(CLK_BUS_PCLK3);
@@ -163,9 +167,19 @@ static rt_err_t _wdt_init(rt_watchdog_t *wdt)
 #else
     hc32_wdt.stcwdg.u32LPMCount      = WDT_LPM_CNT_STOP;
 #endif
-    hc32_wdt.stcwdg.u32ExceptionType = WDT_EXP_TYPE_RST;
+    hc32_wdt.stcwdg.u32ExceptionType = WDT_EXP_TYPE_INT;
     hc32_wdt.sta = WDT_INIT_ING;
     /* WDT_CR register only support write once,so can't call WDT_Init of ther */
+    
+    /* Interrupt configuration */
+    stc_irq_signin_config_t stcIrqSignConfig;
+    stcIrqSignConfig.enIntSrc    = INT_SRC_WDT_REFUDF;
+    stcIrqSignConfig.enIRQn      = WDT_INT_IRQn;
+    stcIrqSignConfig.pfnCallback = &WDT_IrqCallback;
+    (void)INTC_IrqSignIn(&stcIrqSignConfig);
+    NVIC_ClearPendingIRQ(stcIrqSignConfig.enIRQn);
+    NVIC_SetPriority(stcIrqSignConfig.enIRQn, DDL_IRQ_PRIO_DEFAULT);
+    NVIC_EnableIRQ(stcIrqSignConfig.enIRQn);
 
     return RT_EOK;
 }

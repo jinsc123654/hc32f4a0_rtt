@@ -473,8 +473,12 @@ extern "C" {
 #define BSP_USING_TMRA_12_IRQ_PRIO      DDL_IRQ_PRIO_DEFAULT
 #endif/* BSP_USING_TMRA_12 */
 
-#define TX_DMA1_TC3_IRQn                (INT013_IRQn)
-#define SPI2_TX_CPLT_IRQn               (INT014_IRQn)
+#define WDT_INT_IRQn                    (INT116_IRQn)
+
+/* 大于 128 时为共享中断号 */
+#define TX_DMA1_TC3_IRQn                (INT129_IRQn)
+#define SPI2_TX_SPII_IRQn               (INT137_IRQn)
+
 #ifdef __cplusplus
 }
 #endif

@@ -313,3 +313,48 @@ static int pwm_led_sample(int argc, char *argv[])
 /* 导出到 msh 命令列表中 */
 MSH_CMD_EXPORT(pwm_led_sample, pwm sample);
 
+
+
+#define IWDG_DEVICE_NAME    "wdt"    /* 看门狗设备名称 */
+static rt_device_t wdt_dev;         /* 看门狗设备句柄 */
+static void idle_hook(void)
+{
+    /* 在空闲线程的回调函数里喂狗 */
+    rt_device_control(wdt_dev, RT_DEVICE_CTRL_WDT_KEEPALIVE, NULL);
+    //rt_kprintf("feed the dog!\n ");
+}
+static int iwdg_sample(void)
+{
+    rt_err_t ret = RT_EOK;
+    rt_uint32_t timeout = 10;    /* 溢出时间 秒*/
+
+    /* 根据设备名称查找看门狗设备，获取设备句柄 */
+    wdt_dev = rt_device_find(IWDG_DEVICE_NAME);
+    if (!wdt_dev)
+    {
+        rt_kprintf("find %s failed!\n", IWDG_DEVICE_NAME);
+        return RT_ERROR;
+    }
+    /* 初始化设备 */
+    ret = rt_device_init(wdt_dev);
+    if (ret != RT_EOK)
+    {
+        rt_kprintf("initialize %s failed!\n", IWDG_DEVICE_NAME);
+        return RT_ERROR;
+    }
+    /* 设置看门狗溢出时间 */
+    ret = rt_device_control(wdt_dev, RT_DEVICE_CTRL_WDT_SET_TIMEOUT, &timeout);
+    if (ret != RT_EOK)
+    {
+        rt_kprintf("set %s timeout failed!\n", IWDG_DEVICE_NAME);
+        return RT_ERROR;
+    }
+    /* 启动看门狗 */
+    rt_device_control(wdt_dev, RT_DEVICE_CTRL_WDT_START, NULL);
+    /* 设置空闲线程回调函数 */
+    rt_thread_idle_sethook(idle_hook);
+    return ret;
+}
+/* 导出到CORE初始化 */
+INIT_CORE_EXPORT(iwdg_sample);
+

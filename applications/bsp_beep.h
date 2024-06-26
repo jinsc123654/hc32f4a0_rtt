@@ -13,18 +13,7 @@
 #define __BSP_BEEP_H__
 
 #include "stdint.h"
-/* defined the beep PWM timer -*/
-#define BEEP_TIMER           TIMER10
-#define BEEP_TIMER_CLK       RCU_TIMER10
-/* defined the beep pin: PB9 -*/
-#define BEEP_GPIO_CLK      RCU_GPIOB
-#define BEEP_GPIO_PORT     GPIOB
-#define BEEP_GPIO_ALT_FUNC GPIO_AF_3
-#define BEEP_GPIO_PUPD     GPIO_PUPD_NONE
-#define BEEP_GPIO_PIN      GPIO_PIN_9
 
-
-int beep_init(void);
 void buzzer_beep_set(uint16_t _tone_freq, uint8_t _volume);
 
 #endif //__BSP_BEEP_H__

@@ -407,6 +407,8 @@ static int lcd_device_reg(void)
     SPI_Config();
     DMA_Config();
     lcd_dev_init();
+    
+    return 0;
 }
 INIT_COMPONENT_EXPORT(lcd_device_reg);
 

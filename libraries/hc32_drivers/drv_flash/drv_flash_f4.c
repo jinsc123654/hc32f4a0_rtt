@@ -33,10 +33,10 @@ static rt_uint32_t GetSectorNum(rt_uint32_t addr, size_t size)
     rt_uint32_t firstSector = 0, temp = 0;
     rt_uint32_t sectorNum = 0;
 
-    firstSector = addr / SECTOR_SIZE;
-    if (0U != (addr % SECTOR_SIZE))
+    firstSector = addr / EFM_SECTOR_SIZE;
+    if (0U != (addr % EFM_SECTOR_SIZE))
     {
-        temp = (firstSector + 1U) * SECTOR_SIZE - addr;
+        temp = (firstSector + 1U) * EFM_SECTOR_SIZE - addr;
         sectorNum = 1U;
         if (temp >= size)
         {
@@ -47,8 +47,8 @@ static rt_uint32_t GetSectorNum(rt_uint32_t addr, size_t size)
             size = size - temp;
         }
     }
-    sectorNum += size / SECTOR_SIZE;
-    if (0U != (size % SECTOR_SIZE))
+    sectorNum += size / EFM_SECTOR_SIZE;
+    if (0U != (size % EFM_SECTOR_SIZE))
     {
         sectorNum += 1U;
     }
@@ -109,7 +109,7 @@ int hc32_flash_write(rt_uint32_t addr, const rt_uint8_t *buf, size_t size)
     /* EFM_FWMC write enable */
     EFM_FWMC_Cmd(ENABLE);
     /* calculate sector information */
-    FirstSector = addr / SECTOR_SIZE,
+    FirstSector = addr / EFM_SECTOR_SIZE,
     NbOfSectors = GetSectorNum(addr, size);
     /* Sectors disable write protection */
     EFM_SequenceSectorOperateCmd(FirstSector, NbOfSectors, ENABLE);
@@ -187,7 +187,7 @@ int hc32_flash_erase(rt_uint32_t addr, size_t size)
     /* EFM_FWMC write enable */
     EFM_FWMC_Cmd(ENABLE);
     /* calculate sector information */
-    FirstSector = addr / SECTOR_SIZE,
+    FirstSector = addr / EFM_SECTOR_SIZE,
     NbOfSectors = GetSectorNum(addr, size);
     /* Sectors disable write protection */
     EFM_SequenceSectorOperateCmd(FirstSector, NbOfSectors, ENABLE);

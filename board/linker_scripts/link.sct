@@ -11,7 +11,7 @@ LR_IROM1 0x00000000 0x00200000  {    ; load region size_region
     RW_IRAM1 0x1FFE0000 UNINIT 0x00000008  {  ; RW data
         *(.bss.noinit)
     }
-    RW_IRAM2 0x1FFE0008 0x0007FFF8  {  ; RW data
+    RW_IRAM2 0x1FFE0020 0x0007FFD8  {  ; RW data ad5可以使用0x1FFE0008 0x0007FFF8，但是ac6需要32字节对齐就需要0x1FFE0020 0x0007FFD8
         .ANY (+RW +ZI)
         .ANY (RAMTCM)
     }

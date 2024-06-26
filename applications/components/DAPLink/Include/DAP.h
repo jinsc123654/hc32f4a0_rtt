@@ -36,6 +36,8 @@
 #define DAP_FW_VER                      "2.1.1"
 #endif
 
+#define dap_forceinline __attribute__((always_inline))/* 强制内联关键词 ac5 __forceinline  ac6 __attribute__((always_inline)) */
+
 // DAP Command IDs
 #define ID_DAP_Info                     0x00U
 #define ID_DAP_HostStatus               0x01U
@@ -338,7 +340,7 @@ extern void     DAP_Setup (void);
 #define DELAY_SLOW_CYCLES       3U      // Number of cycles for one iteration
 #endif
 
-static __forceinline void PIN_DELAY_SLOW (uint32_t delay) {
+static dap_forceinline void PIN_DELAY_SLOW (uint32_t delay) {
   uint32_t count = delay;
   while (--count);
 }
@@ -347,7 +349,7 @@ static __forceinline void PIN_DELAY_SLOW (uint32_t delay) {
 #ifndef DELAY_FAST_CYCLES
 #define DELAY_FAST_CYCLES       0U      // Number of cycles: 0..3
 #endif
-static __forceinline void PIN_DELAY_FAST (void) {
+static dap_forceinline void PIN_DELAY_FAST (void) {
 #if (DELAY_FAST_CYCLES >= 1U)
   __NOP();
 #endif

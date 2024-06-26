@@ -22,7 +22,7 @@ if  CROSS_TOOL == 'gcc':
     else:
         EXEC_PATH   = r'C:/Users/XXYYZZ'
 elif CROSS_TOOL == 'keil':
-    PLATFORM    = 'armcc'
+    PLATFORM    = 'armclang'
     EXEC_PATH   = r'C:/Keil_v5'
 elif CROSS_TOOL == 'iar':
     PLATFORM    = 'iccarm'

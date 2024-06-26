@@ -37,7 +37,10 @@ int main(void)
     rt_pin_mode(LED_GREEN_PIN, PIN_MODE_OUTPUT);
     power_control_switch(POWER_3V3,POWER_STATE_ON);
     power_control_switch(POWER_5V0,POWER_STATE_ON);
-    rt_err_t ret = RT_EOK;
+    power_control_pd_sink_state(POWER_PD_5V);
+    power_control_switch(POWER_PD,POWER_STATE_ON);
+
+    // rt_err_t ret = RT_EOK;
 
     /* 挂载sd卡 */
 //    while(cnt++ < 10)
@@ -111,8 +114,6 @@ int main(void)
         }
         rt_thread_mdelay(100);
     }
-    
-    return 0;
 }
 #define ADC_DEV_NAME        "adc1"      /* ADC 设备名称 */
 #define ADC_DEV_CHANNEL     14           /* ADC 通道 */

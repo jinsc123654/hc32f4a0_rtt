@@ -1,0 +1,19 @@
+import os
+from building import *
+
+objs = []
+cwd  = GetCurrentDir()
+
+path = [cwd]
+src = Glob('./*.c')
+
+
+group = DefineGroup('lv_app', src, depend = [''], CPPPATH = path)
+
+list = os.listdir(cwd)
+
+for item in list:
+    if os.path.isfile(os.path.join(cwd, item, 'SConscript')):
+        objs = objs + SConscript(os.path.join(item, 'SConscript'))
+
+Return('objs')

@@ -18,6 +18,8 @@
 #define LV_RTTHREAD_INCLUDE <rtthread.h>
 #include LV_RTTHREAD_INCLUDE
 
+#define LV_USE_LOG 1
+#define LV_LOG_LEVEL LV_LOG_LEVEL_WARN
 /*====================
    COLOR SETTINGS
  *====================*/

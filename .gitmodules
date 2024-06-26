@@ -1,0 +1,3 @@
+[submodule "applications/lvgl_app/lv_pm"]
+	path = applications/lvgl_app/lv_pm
+	url = https://github.com/jinsc123654/lv_pm.git

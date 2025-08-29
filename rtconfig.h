@@ -233,14 +233,17 @@
 #define LFS_BLOCK_CYCLES 1
 #define LFS_THREADSAFE
 #define LFS_LOOKAHEAD_MAX 128
+#define RT_DEF_LFS_DRIVERS 1
 #define PKG_USING_CHERRYUSB
 #define PKG_CHERRYUSB_DEVICE
-#define PKG_CHERRYUSB_DEVICE_FS
-#define PKG_CHERRYUSB_DEVICE_DWC2_CUSTOM
+#define PKG_CHERRYUSB_DEVICE_SPEED_FS
+#define PKG_CHERRYUSB_DEVICE_DWC2_HC
 #define PKG_CHERRYUSB_DEVICE_CDC_ACM
 #define PKG_CHERRYUSB_DEVICE_MSC
+#define CONFIG_USBDEV_REQUEST_BUFFER_LEN 512
+#define CONFIG_USBDEV_MSC_MAX_BUFSIZE 512
 #define PKG_CHERRYUSB_DEVICE_TEMPLATE_NONE
-#define PKG_USING_CHERRYUSB_V010300
+#define PKG_USING_CHERRYUSB_V010403
 
 /* peripheral libraries and drivers */
 
@@ -253,6 +256,24 @@
 
 
 /* Kendryte SDK */
+
+
+/* WCH HAL & SDK Drivers */
+
+
+/* AT32 HAL & SDK Drivers */
+
+
+/* HC32 DDL Drivers */
+
+
+/* NXP HAL & SDK Drivers */
+
+
+/* NUVOTON Drivers */
+
+
+/* GD32 Drivers */
 
 
 /* sensors drivers */

@@ -11,7 +11,7 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 #include <board.h>
-#include <dfs_FS.h>
+#include <dfs_fs.h>
 
 
 #define DBG_TAG               "MAIN"
